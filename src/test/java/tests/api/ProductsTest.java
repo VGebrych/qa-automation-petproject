@@ -42,7 +42,7 @@ public class ProductsTest extends BaseTestApi {
     }
 
     @Test
-    public void PostToAllProductList(){
+    public void postToAllProductList(){
         Response productListResponse = given().log().all()
                 .when().post("api/productsList")
                 .then()
