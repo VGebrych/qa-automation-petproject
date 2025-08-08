@@ -5,8 +5,8 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pageobjects.api.products.Product;
-import pageobjects.api.products.ResponseProducts;
+import pageobjects.api.products.products.Product;
+import pageobjects.api.products.products.ResponseProducts;
 import utils.Utils;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -23,7 +23,6 @@ public class ProductsTest extends BaseTestApi {
         ResponseProducts responseProducts = given().log().all()
                 .when().get("api/productsList")
                 .then()
-                .statusCode(200)
                 .extract().as(ResponseProducts.class);
 
         Assert.assertEquals(responseProducts.getResponseCode(), 200);
@@ -47,7 +46,6 @@ public class ProductsTest extends BaseTestApi {
         Response productListResponse = given().log().all()
                 .when().post("api/productsList")
                 .then()
-                .statusCode(200)
                 .extract().response();
 
         SoftAssert softAssert = new SoftAssert();

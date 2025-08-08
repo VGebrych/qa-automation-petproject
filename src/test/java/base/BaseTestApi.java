@@ -11,7 +11,8 @@ public class BaseTestApi {
     public void setup() {
         // Apply base request specification for all tests
         RestAssured.requestSpecification = new ApiSpecBuilder().baseReq;
-
+        // Apply base response specification for all tests
+        RestAssured.responseSpecification = new ApiSpecBuilder().baseResp;
         // Handle cases where server returns JSON with incorrect Content-Type
         RestAssured.registerParser("text/html", JSON);
     }
