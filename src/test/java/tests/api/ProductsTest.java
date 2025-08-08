@@ -1,8 +1,6 @@
 package tests.api;
 
 import base.BaseTestApi;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,33 +8,26 @@ import org.testng.asserts.SoftAssert;
 import pageobjects.api.products.Product;
 import pageobjects.api.products.ResponseProducts;
 import utils.Utils;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static io.restassured.RestAssured.*;
-import static io.restassured.parsing.Parser.JSON;
+import static io.restassured.RestAssured.given;
 
 public class ProductsTest extends BaseTestApi {
 
 
     @Test
-    public void getAllProductList() throws JsonProcessingException {
+    public void getAllProductList() {
 
         ResponseProducts responseProducts = given().log().all()
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
                 .when().get("api/productsList")
                 .then()
-                .parser("text/html", JSON)  // Force RestAssured to treat 'text/html' responses as JSON for deserialization
                 .statusCode(200)
                 .extract().as(ResponseProducts.class);
 
-        // Validate the response code
         Assert.assertEquals(responseProducts.getResponseCode(), 200);
 
-        // Validate that the product list is not empty
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(responseProducts.getProducts().isEmpty(), "Product list should not be empty");
 
@@ -54,15 +45,16 @@ public class ProductsTest extends BaseTestApi {
     @Test
     public void PostToAllProductList(){
         Response productListResponse = given().log().all()
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
                 .when().post("api/productsList")
                 .then()
                 .statusCode(200)
                 .extract().response();
 
-        Assert.assertEquals(Utils.getValueFromJson(productListResponse, "responseCode"), "405");
-        Assert.assertEquals(Utils.getValueFromJson(productListResponse, "message"),
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(Utils.getValueFromJson(productListResponse, "responseCode"), "405");
+        softAssert.assertEquals(Utils.getValueFromJson(productListResponse, "message"),
                 "This request method is not supported.");
+
+        softAssert.assertAll();
     }
 }

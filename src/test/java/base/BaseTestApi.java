@@ -1,15 +1,18 @@
 package base;
 
 import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import utils.Utils;
+
+import static io.restassured.parsing.Parser.JSON;
 
 public class BaseTestApi {
 
     @BeforeClass
     public void setup() {
-        RestAssured.baseURI = Utils.getGlobalValue("baseURI");
+        // Apply base request specification for all tests
+        RestAssured.requestSpecification = new ApiSpecBuilder().baseReq;
+
+        // Handle cases where server returns JSON with incorrect Content-Type
+        RestAssured.registerParser("text/html", JSON);
     }
 }
