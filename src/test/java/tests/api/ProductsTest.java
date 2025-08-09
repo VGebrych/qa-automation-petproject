@@ -33,7 +33,8 @@ public class ProductsTest extends BaseTestApi {
         // Check for duplicate IDs and valid usertype
         Set<Integer> uniqueIds = new HashSet<>();
         for (Product p : responseProducts.getProducts()) {
-            softAssert.assertTrue(uniqueIds.add(p.getId()), "Duplicate ID found: " + p.getId());
+            softAssert.assertTrue(uniqueIds.add(p.getId()),
+                    "Duplicate ID found: " + " (ID: " + p.getId() + "Name: " +p.getName() + ")");
             softAssert.assertTrue(Arrays.asList("Women", "Men", "Kids").contains(p.getCategory().getUsertype().getUsertype()),
                     "Usertype is invalid: " + p.getCategory().getUsertype().getUsertype());
         }
