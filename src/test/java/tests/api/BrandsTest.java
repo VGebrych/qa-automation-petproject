@@ -16,7 +16,7 @@ import static io.restassured.RestAssured.given;
 
 public class BrandsTest extends BaseTestApi {
 
-    private final String brandsApiPath = "api/brandsList";
+    private final String brandsApiPath = "brandsList";
 
     private ResponseBrands getBrandsResponse() {
         return given()
