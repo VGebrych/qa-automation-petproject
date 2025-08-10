@@ -11,7 +11,6 @@ public class ApiSpecBuilder {
     public RequestSpecification baseReq = new RequestSpecBuilder()
             .setBaseUri(Utils.getGlobalValue("baseURI"))
             .addHeader("Accept", "application/json")
-            .addHeader("Content-Type", "application/json")
             .build();
 
     public ResponseSpecification baseResp = new ResponseSpecBuilder()
