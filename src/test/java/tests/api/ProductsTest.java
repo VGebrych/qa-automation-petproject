@@ -15,13 +15,15 @@ import java.util.Set;
 import static io.restassured.RestAssured.given;
 
 public class ProductsTest extends BaseTestApi {
+    private final String productsApiPath = "productsList";
+    private final String searchProductApiPath = "searchProduct";
 
 
     @Test
     public void getAllProductList() {
 
-        ResponseProducts responseProducts = given().log().all()
-                .when().get("api/productsList")
+        ResponseProducts responseProducts = given()
+                .when().get(productsApiPath)
                 .then()
                 .extract().as(ResponseProducts.class);
 
@@ -44,8 +46,8 @@ public class ProductsTest extends BaseTestApi {
 
     @Test
     public void postToAllProductList(){
-        Response productListResponse = given().log().all()
-                .when().post("api/productsList")
+        Response productListResponse = given()
+                .when().post(productsApiPath)
                 .then()
                 .extract().response();
 
@@ -55,5 +57,10 @@ public class ProductsTest extends BaseTestApi {
                 "This request method is not supported.");
 
         softAssert.assertAll();
+    }
+
+    @Test
+    public void postToSearchProduct() {
+
     }
 }
