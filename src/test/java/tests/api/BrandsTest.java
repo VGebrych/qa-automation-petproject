@@ -15,13 +15,20 @@ import java.util.Set;
 import static io.restassured.RestAssured.given;
 
 public class BrandsTest extends BaseTestApi {
-    @Test
-    public void getAllBrandsList(){
-        ResponseBrands responseBrands =  given().log().all()
-                .when().get("api/brandsList")
+
+    private final String brandsApiPath = "api/brandsList";
+
+    private ResponseBrands getBrandsResponse() {
+        return given()
+                .when().get(brandsApiPath)
                 .then()
                 .extract()
                 .as(ResponseBrands.class);
+    }
+
+    @Test
+    public void getAllBrandsList() {
+        ResponseBrands responseBrands = getBrandsResponse();
 
         Assert.assertEquals(responseBrands.getResponseCode(), 200);
 
@@ -29,17 +36,61 @@ public class BrandsTest extends BaseTestApi {
         softAssert.assertFalse(responseBrands.getBrands().isEmpty(), "Brands list should not be empty");
 
         Set<Integer> uniqueIds = new HashSet<>();
-        for( Brand b : responseBrands.getBrands()) {
+        for (Brand b : responseBrands.getBrands()) {
             softAssert.assertTrue(uniqueIds.add(b.getId()),
-                    "Duplicate brand found: " + b.getBrand() + " (ID: " + b.getId() + ")");
+                    "Duplicate brandID found: " + b.getBrand() + " (ID: " + b.getId() + ")");
         }
         softAssert.assertAll();
     }
 
     @Test
-    public void putToAllBrandsList(){
+    public void verifyNoDuplicateBrandNames() {
+        ResponseBrands responseBrands = getBrandsResponse();
+        SoftAssert softAssert = new SoftAssert();
+
+        Set<String> uniqueBrands = new HashSet<>();
+        for (Brand brand : responseBrands.getBrands()) {
+            softAssert.assertTrue(uniqueBrands.add(brand.getBrand()),
+                    "Duplicate brand found: " + brand.getBrand() + " (ID: " + brand.getId() + ")");
+        }
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void verifyBrandsListExactMatch() {
+        ResponseBrands responseBrands = getBrandsResponse();
+
+        Set<String> expectedBrands = Set.of("Polo",
+                "H&M",
+                "Madame",
+                "Mast & Harbour",
+                "Babyhug",
+                "Allen Solly Junior",
+                "Kookie Kids",
+                "Biba");
+
+        Set<String> actualBrands = new HashSet<>();
+        for (Brand brand : responseBrands.getBrands()) {
+            actualBrands.add(brand.getBrand());
+        }
+        SoftAssert softAssert = new SoftAssert();
+
+        for (String expected : expectedBrands) {
+            softAssert.assertTrue(actualBrands.contains(expected),
+                    "Mandatory brand missing: " + expected);
+        }
+
+        for (String actual : actualBrands) {
+            softAssert.assertTrue(expectedBrands.contains(actual),
+                    "Unexpected brand found: " + actual);
+        }
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void putToAllBrandsList() {
         Response brandsListResponse = given().log().all()
-                .when().put("api/brandsList")
+                .when().put(brandsApiPath)
                 .then()
                 .extract().response();
 
