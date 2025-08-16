@@ -26,7 +26,7 @@ public class BrandsTest extends BaseTestApi {
                 .as(ResponseBrands.class);
     }
 
-    @Test
+    @Test (testName = "API 3: Get All Brands List")
     public void getAllBrandsList() {
         ResponseBrands responseBrands = getBrandsResponse();
 
@@ -87,7 +87,7 @@ public class BrandsTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test (testName = "API 4: PUT To All Brands List")
     public void putToAllBrandsList() {
         Response brandsListResponse = given().log().all()
                 .when().put(brandsApiPath)
