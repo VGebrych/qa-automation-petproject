@@ -9,11 +9,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobjects.api.products.products.Product;
 import pageobjects.api.products.products.ResponseProducts;
-import utils.Utils;
+import testUtils.ApiTestUtils;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 
@@ -46,11 +44,12 @@ public class ProductsTest extends BaseTestApi {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(responseProducts.getProducts().isEmpty(), "Product list should not be empty");
 
-        // Check for duplicate IDs and valid usertype
-        Set<Integer> uniqueIds = new HashSet<>();
+        // Check for duplicate IDs
+        ApiTestUtils.verifyDuplicateIds(responseProducts.getProducts(), Product::getId,
+                Product::getName, softAssert);
+
+
         for (Product p : responseProducts.getProducts()) {
-            softAssert.assertTrue(uniqueIds.add(p.getId()),
-                    "Duplicate ID found: " + " (ID: " + p.getId() + "Name: " + p.getName() + ")");
             softAssert.assertTrue(Arrays.asList("Women", "Men", "Kids").contains(p.getCategory().getUsertype().getUsertype()),
                     "Usertype is invalid: " + p.getCategory().getUsertype().getUsertype());
         }
@@ -60,17 +59,8 @@ public class ProductsTest extends BaseTestApi {
 
     @Test(testName = "API 2: POST To All Products List")
     public void postToAllProductList() {
-        Response productListResponse = given()
-                .when().post(productsApiPath)
-                .then()
-                .extract().response();
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(Utils.getValueFromJson(productListResponse, "responseCode"), "405");
-        softAssert.assertEquals(Utils.getValueFromJson(productListResponse, "message"),
+        ApiTestUtils.verifyMethodNotSupported(productsApiPath, "POST", "405",
                 "This request method is not supported.");
-
-        softAssert.assertAll();
     }
 
     @Test(dataProvider = "searchQueries", testName = "API 5: POST To Search Product")
@@ -94,10 +84,11 @@ public class ProductsTest extends BaseTestApi {
             softAssert.assertFalse(searchProductResponse.getProducts().isEmpty(),
                     "Expected non-empty result for query: " + query);
 
-            // 3. Validate product fields and unique IDs
-            Set<Integer> uniqueIds = new HashSet<>();
+            ApiTestUtils.verifyDuplicateIds(searchProductResponse.getProducts(), Product::getId,
+                    Product::getName, softAssert);
+
+            // 3. Validate product fields
             for (Product p : searchProductResponse.getProducts()) {
-                softAssert.assertTrue(uniqueIds.add(p.getId()), "Duplicate ID found: " + p.getId());
                 softAssert.assertNotNull(p.getName(), "Product name is null");
                 softAssert.assertNotNull(p.getPrice(), "Product price is null");
                 softAssert.assertNotNull(p.getBrand(), "Product brand is null");
@@ -129,8 +120,8 @@ public class ProductsTest extends BaseTestApi {
                 .extract().response();
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(Utils.getValueFromJson(productListResponse, "responseCode"), "400");
-        softAssert.assertEquals(Utils.getValueFromJson(productListResponse, "message"),
+        softAssert.assertEquals(ApiTestUtils.getValueFromJson(productListResponse, "responseCode"), "400");
+        softAssert.assertEquals(ApiTestUtils.getValueFromJson(productListResponse, "message"),
                 "Bad request, search_product parameter is missing in POST request.");
 
         softAssert.assertAll();

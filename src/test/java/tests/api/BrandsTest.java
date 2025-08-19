@@ -1,16 +1,17 @@
 package tests.api;
 
 import base.BaseTestApi;
-import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobjects.api.products.brands.Brand;
 import pageobjects.api.products.brands.ResponseBrands;
-import utils.Utils;
-
+import testUtils.ApiTestUtils;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
@@ -35,24 +36,28 @@ public class BrandsTest extends BaseTestApi {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(responseBrands.getBrands().isEmpty(), "Brands list should not be empty");
 
-        Set<Integer> uniqueIds = new HashSet<>();
-        for (Brand b : responseBrands.getBrands()) {
-            softAssert.assertTrue(uniqueIds.add(b.getId()),
-                    "Duplicate brandID found: " + b.getBrand() + " (ID: " + b.getId() + ")");
-        }
+        ApiTestUtils.verifyDuplicateIds(responseBrands.getBrands(),
+                Brand::getId, Brand::getBrand, softAssert);
+
         softAssert.assertAll();
     }
 
     @Test
-    public void verifyNoDuplicateBrandNames() {
+    public void verifyNoDuplicateBrandNamesIgnoreCaseStream() {
         ResponseBrands responseBrands = getBrandsResponse();
         SoftAssert softAssert = new SoftAssert();
 
-        Set<String> uniqueBrands = new HashSet<>();
-        for (Brand brand : responseBrands.getBrands()) {
-            softAssert.assertTrue(uniqueBrands.add(brand.getBrand()),
-                    "Duplicate brand found: " + brand.getBrand() + " (ID: " + brand.getId() + ")");
-        }
+        Map<String, List<Integer>> duplicates = responseBrands.getBrands().stream()
+                .collect(Collectors.groupingBy(
+                        b -> b.getBrand().toLowerCase(),
+                        Collectors.mapping(Brand::getId, Collectors.toList())
+                ));
+
+        duplicates.forEach((brand, ids) -> {
+            if (ids.size() > 1) {
+                softAssert.fail("Duplicate brand found: " + brand + " (IDs: " + ids + ")");
+            }
+        });
         softAssert.assertAll();
     }
 
@@ -89,16 +94,9 @@ public class BrandsTest extends BaseTestApi {
 
     @Test (testName = "API 4: PUT To All Brands List")
     public void putToAllBrandsList() {
-        Response brandsListResponse = given().log().all()
-                .when().put(brandsApiPath)
-                .then()
-                .extract().response();
 
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(Utils.getValueFromJson(brandsListResponse, "responseCode"), "405");
-        softAssert.assertEquals(Utils.getValueFromJson(brandsListResponse, "message"),
+        ApiTestUtils.verifyMethodNotSupported(brandsApiPath, "PUT", "405",
                 "This request method is not supported.");
 
-        softAssert.assertAll();
     }
 }

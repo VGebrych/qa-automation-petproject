@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeClass;
 
 import static io.restassured.parsing.Parser.JSON;
 
-public class BaseTestApi {
+public class BaseTestApi extends BaseTest {
 
     @BeforeClass
     public void setup() {
