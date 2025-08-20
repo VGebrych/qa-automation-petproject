@@ -1,4 +1,6 @@
 package tests.api;
 
-public class UserAuthenticationTest {
+import base.BaseTestApi;
+
+public class UserAuthenticationTest extends BaseTestApi {
 }

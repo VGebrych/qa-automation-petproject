@@ -1,4 +1,4 @@
-package pageobjects.api.products.brands;
+package pageobjects.api.brands;
 
 public class Brand {
     private int id;

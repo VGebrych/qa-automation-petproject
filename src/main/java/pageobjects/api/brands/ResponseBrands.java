@@ -1,4 +1,4 @@
-package pageobjects.api.products.brands;
+package pageobjects.api.brands;
 
 import java.util.List;
 

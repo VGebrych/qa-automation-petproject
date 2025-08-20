@@ -7,8 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pageobjects.api.products.products.Product;
-import pageobjects.api.products.products.ResponseProducts;
+import pageobjects.api.products.Product;
+import pageobjects.api.products.ResponseProducts;
 import testUtils.ApiTestUtils;
 
 import java.util.Arrays;

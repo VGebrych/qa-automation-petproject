@@ -1,4 +1,4 @@
-package pageobjects.api.products.products;
+package pageobjects.api.products;
 
 public class UserType {
 
