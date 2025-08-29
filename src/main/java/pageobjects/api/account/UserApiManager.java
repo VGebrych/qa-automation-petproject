@@ -11,7 +11,7 @@ public class UserApiManager {
     private final static String deleteAccount = "deleteAccount";
 
 
-    public static Response createUser(UserRequest user){
+    public static Response createUser(UserRequest user) {
         return given()
                 .contentType("application/x-www-form-urlencoded")
                 .formParams(UserFactory.toMap(user))
@@ -20,7 +20,7 @@ public class UserApiManager {
                 .then().extract().response();
     }
 
-    public static Response getUserDetailByEmail(String email){
+    public static Response getUserDetailByEmail(String email) {
         return given()
                 .queryParam("email", email)
                 .when()
@@ -28,7 +28,7 @@ public class UserApiManager {
                 .then().extract().response();
     }
 
-    public static Response updateUser(UserRequest user){
+    public static Response updateUser(UserRequest user) {
         return given()
                 .contentType("application/x-www-form-urlencoded")
                 .formParams(UserFactory.toMap(user))
@@ -37,7 +37,7 @@ public class UserApiManager {
                 .then().extract().response();
     }
 
-    public static Response deleteUser(String email, String password){
+    public static Response deleteUser(String email, String password) {
         return given()
                 .formParam("email", email)
                 .formParam("password", password)

@@ -3,7 +3,7 @@ package pageobjects.api.account;
 public class UserGetRequest {
     private String id;
     private String name;
-    private String  email;
+    private String email;
     private String title;
     private String birth_day;
     private String birth_month;

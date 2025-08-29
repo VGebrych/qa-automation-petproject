@@ -11,9 +11,11 @@ import testUtils.ApiTestUtils;
 
 public class UserAccountManagementTest extends BaseTestApi {
 
-    @Test (testName = "API 11: POST To Create/Register User Account")
+    UserRequest newUser;
+
+    @Test(testName = "API 11: POST To Create/Register User Account")
     public void createUserAccount() {
-        UserRequest newUser = UserFactory.createDefaultUser();
+        newUser = UserFactory.createDefaultUser();
         Response response = UserApiManager.createUser(newUser);
 
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "201");

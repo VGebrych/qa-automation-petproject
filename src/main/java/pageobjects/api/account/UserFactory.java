@@ -15,7 +15,7 @@ public class UserFactory {
         return "336" + timestamp;
     }
 
-    public static UserRequest createDefaultUser(){
+    public static UserRequest createDefaultUser() {
         UserRequest user = new UserRequest();
         user.setName("Test User");
         user.setEmail(generateUniqueEmail());
@@ -37,7 +37,7 @@ public class UserFactory {
         return user;
     }
 
-    public static UserRequest createUpdatedUser(UserRequest existingUser){
+    public static UserRequest createUpdatedUser(UserRequest existingUser) {
         UserRequest user = new UserRequest();
         user.setName("Updated Test User");
         user.setEmail(existingUser.getEmail());
@@ -58,6 +58,7 @@ public class UserFactory {
         user.setMobile_number(generateUniqueMobileNumber());
         return user;
     }
+
     public static Map<String, String> toMap(UserRequest user) {
         Map<String, String> formData = new HashMap<>();
         formData.put("name", user.getName());
