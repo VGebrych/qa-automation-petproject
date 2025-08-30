@@ -6,13 +6,11 @@ import base.annotations.NeedUser;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageobjects.api.account.UserApiManager;
-import pageobjects.api.account.UserFactory;
-import pageobjects.api.account.UserRequest;
+import org.testng.asserts.SoftAssert;
+import pageobjects.api.account.*;
 import testUtils.ApiTestUtils;
 
 public class UserAccountManagementTest extends BaseTestApi {
-
 
 
     @Test(testName = "API 11: POST To Create/Register User Account")
@@ -27,10 +25,27 @@ public class UserAccountManagementTest extends BaseTestApi {
 
     @Test(testName = "API 12: DELETE METHOD To Delete User Account")
     @NeedUser
-    public  void  deleteUserAccount(){
+    public void deleteUserAccount() {
         Response response = UserApiManager.deleteUser(getActiveUser().getEmail(), getActiveUser().getPassword());
 
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "200");
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "Account deleted!");
+    }
+
+    @Test(testName = "API 14: GET user account detail by email")
+    @NeedUser
+    @NeedCleanUp
+    public void getUserAccountDetailsByEmail() {
+        UserGetRequest userDetailsResponse = UserApiManager.getUserDetailByEmail(getActiveUser().getEmail());
+
+        User getUser = userDetailsResponse.getUser();
+        UserRequest activeUser = getActiveUser();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(userDetailsResponse.getResponseCode(), 200);
+
+        ApiTestUtils.compareUserAccounts(activeUser, getUser, softAssert);
+
+        softAssert.assertAll();
     }
 }

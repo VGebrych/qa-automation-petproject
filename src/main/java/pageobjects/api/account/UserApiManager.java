@@ -20,12 +20,12 @@ public class UserApiManager {
                 .then().extract().response();
     }
 
-    public static Response getUserDetailByEmail(String email) {
+    public static UserGetRequest getUserDetailByEmail(String email) {
         return given()
                 .queryParam("email", email)
                 .when()
                 .get(getUserDetailByEmail)
-                .then().extract().response();
+                .then().extract().as(UserGetRequest.class);
     }
 
     public static Response updateUser(UserRequest user) {
