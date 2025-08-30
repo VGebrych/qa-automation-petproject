@@ -48,4 +48,24 @@ public class UserAccountManagementTest extends BaseTestApi {
 
         softAssert.assertAll();
     }
+
+    @Test(testName = "API 13: PUT METHOD To Update User Account")
+    @NeedUser
+    @NeedCleanUp
+    public void updateUserAccount(){
+        UserRequest updatedUser = UserFactory.createUpdatedUser(getActiveUser());
+        Response response = UserApiManager.updateUser(updatedUser);
+
+        Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "200");
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "User updated!");
+
+        UserGetRequest userDetailsResponse = UserApiManager.getUserDetailByEmail(getActiveUser().getEmail());
+        User getUser = userDetailsResponse.getUser();
+
+        ApiTestUtils.compareUserAccounts(updatedUser, getUser, softAssert);
+
+        softAssert.assertAll();
+    }
 }
