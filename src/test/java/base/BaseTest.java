@@ -33,7 +33,7 @@ public class BaseTest {
         }
 
         if (method.isAnnotationPresent(NeedCleanUp.class)) {
-            UserRequest activeUser = getActiveUser();
+            UserRequest activeUser = getPreconditionUser();
             if (activeUser != null) {
                 UserApiManager.deleteUser(activeUser.getEmail(), activeUser.getPassword());
             }
@@ -56,7 +56,7 @@ public class BaseTest {
         }
     }
 
-    protected UserRequest getActiveUser() {
+    protected UserRequest getPreconditionUser() {
         return methodLevelUser != null ? methodLevelUser : classLevelUser;
     }
 }

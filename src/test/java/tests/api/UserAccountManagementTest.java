@@ -26,7 +26,7 @@ public class UserAccountManagementTest extends BaseTestApi {
     @Test(testName = "API 12: DELETE METHOD To Delete User Account")
     @NeedUser
     public void deleteUserAccount() {
-        Response response = UserApiManager.deleteUser(getActiveUser().getEmail(), getActiveUser().getPassword());
+        Response response = UserApiManager.deleteUser(getPreconditionUser().getEmail(), getPreconditionUser().getPassword());
 
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "200");
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "Account deleted!");
@@ -36,15 +36,15 @@ public class UserAccountManagementTest extends BaseTestApi {
     @NeedUser
     @NeedCleanUp
     public void getUserAccountDetailsByEmail() {
-        UserGetRequest userDetailsResponse = UserApiManager.getUserDetailByEmail(getActiveUser().getEmail());
+        UserGetRequest userDetailsResponse = UserApiManager.getUserDetailByEmail(getPreconditionUser().getEmail());
 
         User getUser = userDetailsResponse.getUser();
-        UserRequest activeUser = getActiveUser();
+        UserRequest preconditionUser = getPreconditionUser();
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(userDetailsResponse.getResponseCode(), 200);
 
-        ApiTestUtils.compareUserAccounts(activeUser, getUser, softAssert);
+        ApiTestUtils.compareUserAccounts(preconditionUser, getUser, softAssert);
 
         softAssert.assertAll();
     }
@@ -53,7 +53,7 @@ public class UserAccountManagementTest extends BaseTestApi {
     @NeedUser
     @NeedCleanUp
     public void updateUserAccount(){
-        UserRequest updatedUser = UserFactory.createUpdatedUser(getActiveUser());
+        UserRequest updatedUser = UserFactory.createUpdatedUser(getPreconditionUser());
         Response response = UserApiManager.updateUser(updatedUser);
 
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "200");
@@ -61,10 +61,10 @@ public class UserAccountManagementTest extends BaseTestApi {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "User updated!");
 
-        UserGetRequest userDetailsResponse = UserApiManager.getUserDetailByEmail(getActiveUser().getEmail());
-        User getUser = userDetailsResponse.getUser();
+        UserGetRequest userDetailsResponse = UserApiManager.getUserDetailByEmail(getPreconditionUser().getEmail());
+        User currentUser = userDetailsResponse.getUser();
 
-        ApiTestUtils.compareUserAccounts(updatedUser, getUser, softAssert);
+        ApiTestUtils.compareUserAccounts(updatedUser, currentUser, softAssert);
 
         softAssert.assertAll();
     }
