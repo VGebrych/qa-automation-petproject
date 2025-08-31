@@ -2,6 +2,7 @@ package base;
 
 import base.annotations.NeedCleanUp;
 import base.annotations.NeedUser;
+import io.restassured.RestAssured;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -42,6 +43,7 @@ public class BaseTest {
 
     @BeforeClass
     public void setupClass() {
+        RestAssured.requestSpecification = new ApiSpecBuilder().baseReq;
         if (this.getClass().isAnnotationPresent(NeedUser.class) && classLevelUser == null) {
             classLevelUser = UserFactory.createDefaultUser();
             UserApiManager.createUser(classLevelUser);
