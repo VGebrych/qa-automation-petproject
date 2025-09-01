@@ -102,11 +102,11 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
-    <!--<dependency>
+    <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-testng</artifactId>
       <version>2.29.1</version>
-    </dependency>-->
+    </dependency>
 
   </dependencies>
 
@@ -123,18 +123,28 @@
       </plugin>
 
       <!-- Surefire plugin: runs TestNG tests -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.3</version>
-        <!-- Configuration for testng.xml can be added later -->
-      </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.5.3</version>
+            <configuration>
+                <systemPropertyVariables>
+                    <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                </systemPropertyVariables>
+                <suiteXmlFiles>
+                    <suiteXmlFile>src/test/resources/testng/testng.xml</suiteXmlFile>
+                </suiteXmlFiles>
+            </configuration>
+        </plugin>
 
-      <!--<plugin>
+      <plugin>
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
         <version>2.15.2</version>
-      </plugin>-->
+          <configuration>
+              <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+          </configuration>
+      </plugin>
 
     </plugins>
   </build>
