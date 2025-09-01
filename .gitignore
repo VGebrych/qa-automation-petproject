@@ -41,3 +41,4 @@ build/
 
 ### Allure ###
 target/allure-results/
+/.allure
