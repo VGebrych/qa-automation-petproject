@@ -9,7 +9,7 @@ import utils.Utils;
 public class ApiSpecBuilder {
 
     public RequestSpecification baseReq = new RequestSpecBuilder()
-            .setBaseUri(Utils.getGlobalValue("baseURI"))
+            .setBaseUri(Utils.getGlobalValue("baseURI") + "/api/")
             .addHeader("Accept", "application/json")
             .build();
 

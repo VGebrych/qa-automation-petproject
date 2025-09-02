@@ -1,6 +1,5 @@
 package base;
 
-import base.listeners.ApiRequestResponseListener;
 import base.listeners.ApiSuiteListener;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
@@ -21,8 +20,5 @@ public class BaseTestApi extends BaseTest {
 
         // Handle cases where server returns JSON with incorrect Content-Type
         RestAssured.registerParser("text/html", JSON);
-
-        RestAssured.filters(new ApiRequestResponseListener());
-
     }
 }
