@@ -13,7 +13,7 @@ import testUtils.ApiTestUtils;
 public class UserAccountManagementTest extends BaseTestApi {
 
 
-    @Test(testName = "API 11: POST To Create/Register User Account")
+    @Test(testName = "API 11: POST To Create/Register User Account", groups = {"API"})
     @NeedCleanUp
     public void createUserAccount() {
         UserRequest newUser = UserFactory.createDefaultUser();
@@ -23,7 +23,7 @@ public class UserAccountManagementTest extends BaseTestApi {
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "User created!");
     }
 
-    @Test(testName = "API 12: DELETE METHOD To Delete User Account")
+    @Test(testName = "API 12: DELETE METHOD To Delete User Account", groups = {"API"})
     @NeedUser
     public void deleteUserAccount() {
         Response response = UserApiManager.deleteUser(getPreconditionUser().getEmail(), getPreconditionUser().getPassword());
@@ -32,7 +32,7 @@ public class UserAccountManagementTest extends BaseTestApi {
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "Account deleted!");
     }
 
-    @Test(testName = "API 14: GET user account detail by email")
+    @Test(testName = "API 14: GET user account detail by email", groups = {"API"})
     @NeedUser
     @NeedCleanUp
     public void getUserAccountDetailsByEmail() {
@@ -49,7 +49,7 @@ public class UserAccountManagementTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test(testName = "API 13: PUT METHOD To Update User Account")
+    @Test(testName = "API 13: PUT METHOD To Update User Account", groups = {"API"})
     @NeedUser
     @NeedCleanUp
     public void updateUserAccount(){

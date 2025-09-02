@@ -31,7 +31,7 @@ public class ProductsTest extends BaseTestApi {
         };
     }
 
-    @Test(testName = "API 1: Get All Products List")
+    @Test(testName = "API 1: Get All Products List", groups = {"API"})
     public void getAllProductList() {
 
         ResponseProducts responseProducts = given()
@@ -57,13 +57,13 @@ public class ProductsTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test(testName = "API 2: POST To All Products List")
+    @Test(testName = "API 2: POST To All Products List", groups = {"API"})
     public void postToAllProductList() {
         ApiTestUtils.verifyMethodNotSupported(productsApiPath, "POST", "405",
                 "This request method is not supported.");
     }
 
-    @Test(dataProvider = "searchQueries", testName = "API 5: POST To Search Product")
+    @Test(dataProvider = "searchQueries", testName = "API 5: POST To Search Product", groups = {"API"})
     public void postToSearchProduct(String query, boolean expectEmpty) {
         ResponseProducts searchProductResponse = given()
                 .contentType(ContentType.URLENC)
@@ -112,7 +112,7 @@ public class ProductsTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test (testName = "API 6: POST To Search Product without search_product parameter")
+    @Test (testName = "API 6: POST To Search Product without search_product parameter",  groups = {"API"})
     public void POSTToSearchProductWithoutParameter(){
         Response productListResponse = given()
                 .when().post(searchProductApiPath)

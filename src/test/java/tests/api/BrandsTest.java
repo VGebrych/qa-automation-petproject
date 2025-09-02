@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
+
 public class BrandsTest extends BaseTestApi {
 
     private final String brandsApiPath = "brandsList";
@@ -27,7 +28,7 @@ public class BrandsTest extends BaseTestApi {
                 .as(ResponseBrands.class);
     }
 
-    @Test (testName = "API 3: Get All Brands List")
+    @Test (testName = "API 3: Get All Brands List", groups = {"API"})
     public void getAllBrandsList() {
         ResponseBrands responseBrands = getBrandsResponse();
 
@@ -42,7 +43,7 @@ public class BrandsTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test(groups = {"API"})
     public void verifyNoDuplicateBrandNamesIgnoreCaseStream() {
         ResponseBrands responseBrands = getBrandsResponse();
         SoftAssert softAssert = new SoftAssert();
@@ -61,7 +62,7 @@ public class BrandsTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test(groups = {"API"})
     public void verifyBrandsListExactMatch() {
         ResponseBrands responseBrands = getBrandsResponse();
 
@@ -92,7 +93,7 @@ public class BrandsTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test (testName = "API 4: PUT To All Brands List")
+    @Test (testName = "API 4: PUT To All Brands List", groups = {"API"})
     public void putToAllBrandsList() {
 
         ApiTestUtils.verifyMethodNotSupported(brandsApiPath, "PUT", "405",

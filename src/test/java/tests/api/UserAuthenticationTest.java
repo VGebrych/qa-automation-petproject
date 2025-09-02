@@ -14,6 +14,7 @@ import static io.restassured.RestAssured.given;
 
 @NeedUser
 @NeedCleanUp
+@Test(groups = {"API"})
 public class UserAuthenticationTest extends BaseTestApi {
 
     @DataProvider(name = "invalidLoginDetails")
@@ -31,7 +32,7 @@ public class UserAuthenticationTest extends BaseTestApi {
 
     private final String verifyUserApiPath = "verifyLogin";
 
-    @Test(testName = "API 7: POST To Verify Login with valid details")
+    @Test(testName = "API 7: POST To Verify Login with valid details", groups = {"API"})
     public void verifyUserLogin() {
 
         Response verifyUserResponse = given()
@@ -46,13 +47,15 @@ public class UserAuthenticationTest extends BaseTestApi {
         Assert.assertEquals(ApiTestUtils.getValueFromJson(verifyUserResponse, "message"), "User exists!");
     }
 
-    @Test(testName = "API 9: DELETE To Verify Login")
+    @Test(testName = "API 9: DELETE To Verify Login", groups = {"API"})
     public void deleteToVerifyLogin() {
         ApiTestUtils.verifyMethodNotSupported(verifyUserApiPath, "DELETE", "405",
                 "This request method is not supported.");
     }
 
-    @Test(dataProvider = "invalidLoginDetails", testName = "API 8: POST To Verify Login without email parameter AND API 10: POST To Verify Login with invalid details")
+    @Test(dataProvider = "invalidLoginDetails",
+            testName = "API 8: POST To Verify Login without email parameter AND API 10: POST To Verify Login with invalid details",
+            groups = {"API"})
     public void verifyLoginWithInvalidDetails(String email, String password, String code, String message) {
         RequestSpecification request = given().contentType("application/x-www-form-urlencoded");
 
