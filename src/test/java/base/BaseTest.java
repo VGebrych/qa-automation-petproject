@@ -15,11 +15,11 @@ import java.lang.reflect.Method;
 
 public class BaseTest {
 
-    protected UserRequest methodLevelUser;
-    protected UserRequest classLevelUser;
+    public UserRequest methodLevelUser;
+    public UserRequest classLevelUser;
 
     @BeforeMethod
-    public void setup(Method method) {
+    public void setupMethodUser(Method method) {
         if (method.isAnnotationPresent(NeedUser.class)) {
             methodLevelUser = UserFactory.createDefaultUser();
             UserApiManager.createUser(methodLevelUser);
@@ -27,7 +27,7 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void cleanUp(Method method) {
+    public void cleanUpMethodUser(Method method) {
         if (methodLevelUser != null) {
             UserApiManager.deleteUser(methodLevelUser.getEmail(), methodLevelUser.getPassword());
             methodLevelUser = null;
@@ -42,7 +42,7 @@ public class BaseTest {
     }
 
     @BeforeClass
-    public void setupClass() {
+    public void setupClassClassUser() {
         RestAssured.requestSpecification = new ApiSpecBuilder().baseReq;
         if (this.getClass().isAnnotationPresent(NeedUser.class) && classLevelUser == null) {
             classLevelUser = UserFactory.createDefaultUser();
@@ -51,7 +51,7 @@ public class BaseTest {
     }
 
     @AfterClass
-    public void cleanUpClass() {
+    public void cleanUpClassUser() {
         if (classLevelUser != null) {
             UserApiManager.deleteUser(classLevelUser.getEmail(), classLevelUser.getPassword());
             classLevelUser = null;
