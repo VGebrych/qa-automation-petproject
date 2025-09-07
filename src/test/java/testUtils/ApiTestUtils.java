@@ -4,7 +4,6 @@ import io.restassured.path.json.JsonPath;
 import org.testng.asserts.SoftAssert;
 import io.restassured.response.Response;
 import pageobjects.api.account.User;
-import pageobjects.api.account.UserGetRequest;
 import pageobjects.api.account.UserRequest;
 
 import java.util.HashSet;
