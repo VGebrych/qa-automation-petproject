@@ -11,7 +11,7 @@ import pom.base.AccountInformation;
 public class UserManagementTest extends BaseTestUI {
     @Test
     @NeedCleanUp
-    public void registerUser() throws InterruptedException {
+    public void registerUser() {
         methodLevelUser = UserFactory.createDefaultUser();
 
         homePage.acceptCookies();
