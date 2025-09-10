@@ -16,8 +16,8 @@ public class UserAccountManagementTest extends BaseTestApi {
     @Test(testName = "API 11: POST To Create/Register User Account", groups = {"API"})
     @NeedCleanUp
     public void createUserAccount() {
-        UserRequest newUser = UserFactory.createDefaultUser();
-        Response response = UserApiManager.createUser(newUser);
+        methodLevelUser = UserFactory.createDefaultUser();
+        Response response = UserApiManager.createUser(methodLevelUser);
 
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "201");
         Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "User created!");
@@ -58,7 +58,7 @@ public class UserAccountManagementTest extends BaseTestApi {
     @Test(testName = "API 13: PUT METHOD To Update User Account", groups = {"API"})
     @NeedUser
     @NeedCleanUp
-    public void updateUserAccount(){
+    public void updateUserAccount() {
         UserRequest updatedUser = UserFactory.createUpdatedUser(getPreconditionUser());
         Response response = UserApiManager.updateUser(updatedUser);
 
