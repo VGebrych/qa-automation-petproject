@@ -50,4 +50,9 @@ public class BasePage {
         waitForElementToAppear(element);
         return element.getText();
     }
+
+    protected boolean isElementTextVisible(WebElement element, String expectedText) {
+        waitForElementToAppear(element);
+        return element.isDisplayed() && element.getText().equalsIgnoreCase(expectedText);
+    }
 }
