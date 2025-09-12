@@ -34,6 +34,10 @@ public class BasePage {
         wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
     }
 
+    protected void waitForTextToAppear(WebElement element, String text) {
+        wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
+
     // ----- Common actions -----
     protected void click(WebElement element) {
         waitForElementToAppear(element);
@@ -53,6 +57,6 @@ public class BasePage {
 
     protected boolean isElementTextVisible(WebElement element, String expectedText) {
         waitForElementToAppear(element);
-        return element.isDisplayed() && element.getText().equalsIgnoreCase(expectedText);
+        return element.isDisplayed() && getText(element).equalsIgnoreCase(expectedText);
     }
 }
