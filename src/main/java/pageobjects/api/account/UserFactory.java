@@ -15,12 +15,16 @@ public class UserFactory {
         return "336" + timestamp;
     }
 
+    private static String generateRandomTitle() {
+        return Math.random() < 0.5 ? "Mr" : "Mrs";
+    }
+
     public static UserRequest createDefaultUser() {
         UserRequest user = new UserRequest();
         user.setName("Test User");
         user.setEmail(generateUniqueEmail());
         user.setPassword("Password123");
-        user.setTitle("Mr");
+        user.setTitle(generateRandomTitle());
         user.setBirth_date("15");
         user.setBirth_month("5");
         user.setBirth_year("1990");
@@ -42,7 +46,7 @@ public class UserFactory {
         user.setName("Updated Test User");
         user.setEmail(existingUser.getEmail());
         user.setPassword(existingUser.getPassword());
-        user.setTitle("Mrs");
+        user.setTitle(generateRandomTitle());
         user.setBirth_date("20");
         user.setBirth_month("10");
         user.setBirth_year("1985");

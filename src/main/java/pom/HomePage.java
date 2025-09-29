@@ -25,20 +25,21 @@ public class HomePage extends BasePage {
 
     // ---- Actions
     public void acceptCookies() {
+        waitForElementToAppear(consentButton);
         click(consentButton);
     }
 
-    public LoginPage clickSignUpLoginLink() {
+    public SignupLoginPage clickSignUpLoginLink() {
+        waitForElementToAppear(signUpLoginLink);
         click(signUpLoginLink);
-        return new LoginPage(driver);
+        return new SignupLoginPage(driver);
     }
 
-    public HomePage goToHomePage() {
+    public void goToHomePage() {
         driver.get(Utils.getGlobalValue("baseURI"));
-        return new HomePage(driver);
     }
 
-    public boolean isHomePageVisible() {
+    public boolean isHomeSliderVisible() {
         waitForElementToAppear(homeSlider);
         return homeSlider.isDisplayed();
     }

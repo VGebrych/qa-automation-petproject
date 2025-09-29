@@ -3,11 +3,10 @@ package pom;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pom.base.AccountInformation;
 import pom.base.BasePage;
 
-public class LoginPage extends BasePage {
-    public LoginPage(WebDriver driver) {
+public class SignupLoginPage extends BasePage {
+    public SignupLoginPage(WebDriver driver) {
         super(driver);
     }
 
@@ -30,10 +29,12 @@ public class LoginPage extends BasePage {
     }
 
     public void enterName(String userName) {
+        waitForElementToAppear(nameInput);
         nameInput.sendKeys(userName);
     }
 
     public void enterEmail(String email) {
+        waitForElementToAppear(emailInput);
         emailInput.sendKeys(email);
     }
 
@@ -42,8 +43,9 @@ public class LoginPage extends BasePage {
         enterEmail(email);
     }
 
-    public AccountInformation clickSignUpButton() {
+    public SignupAccountInfoPage clickSignUpButton() {
+        waitForElementToAppear(signUpButton);
         signUpButton.click();
-        return new AccountInformation(driver);
+        return new SignupAccountInfoPage(driver);
     }
 }

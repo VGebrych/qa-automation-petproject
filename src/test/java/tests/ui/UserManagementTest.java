@@ -5,8 +5,8 @@ import base.annotations.NeedCleanUp;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.api.account.UserFactory;
-import pom.LoginPage;
-import pom.base.AccountInformation;
+import pom.SignupLoginPage;
+import pom.SignupAccountInfoPage;
 
 public class UserManagementTest extends BaseTestUI {
     @Test
@@ -14,13 +14,20 @@ public class UserManagementTest extends BaseTestUI {
     public void registerUser() {
         methodLevelUser = UserFactory.createDefaultUser();
 
-        homePage.acceptCookies();
-        Assert.assertTrue(homePage.isHomePageVisible(), "Home page is not visible");
+        System.out.println(methodLevelUser.getEmail());
+        System.out.println(methodLevelUser.getPassword());
 
-        LoginPage loginPage = homePage.clickSignUpLoginLink();
+        Assert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
+
+        SignupLoginPage loginPage = homePage.clickSignUpLoginLink();
         Assert.assertTrue(loginPage.isSignUpTextVisible(), "Sign Up text is not visible");
 
         loginPage.fillSignUpForm(methodLevelUser.getName(), methodLevelUser.getEmail());
-        AccountInformation accountInfo = loginPage.clickSignUpButton();
+        SignupAccountInfoPage accountInfo = loginPage.clickSignUpButton();
+
+        Assert.assertTrue(accountInfo.isAccountInformationTitleVisible(), "ACCOUNT INFORMATION title is not visible");
+        accountInfo.selectTitle(methodLevelUser.getTitle());
+
+
     }
 }

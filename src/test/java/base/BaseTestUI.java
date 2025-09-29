@@ -42,7 +42,7 @@ public class BaseTestUI extends BaseTest {
                 driver = new SafariDriver();
                 break;
             default:
-                throw new IllegalArgumentException("Браузер не підтримується: " + browserName);
+                throw new IllegalArgumentException("Browser is not supported in BaseTestUI: " + browserName);
         }
         driver.manage().window().maximize();
         return driver;
@@ -60,6 +60,7 @@ public class BaseTestUI extends BaseTest {
         driver = initializeDriver();
         homePage = new HomePage(driver);
         homePage.goToHomePage();
+        homePage.acceptCookies();
     }
 
     @AfterMethod(alwaysRun = true)
