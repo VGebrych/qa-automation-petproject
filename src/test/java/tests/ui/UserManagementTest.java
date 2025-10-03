@@ -14,9 +14,6 @@ public class UserManagementTest extends BaseTestUI {
     public void registerUser() {
         methodLevelUser = UserFactory.createDefaultUser();
 
-        System.out.println(methodLevelUser.getEmail());
-        System.out.println(methodLevelUser.getPassword());
-
         Assert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
 
         SignupLoginPage loginPage = homePage.clickSignUpLoginLink();
@@ -26,8 +23,9 @@ public class UserManagementTest extends BaseTestUI {
         SignupAccountInfoPage accountInfo = loginPage.clickSignUpButton();
 
         Assert.assertTrue(accountInfo.isAccountInformationTitleVisible(), "ACCOUNT INFORMATION title is not visible");
-        accountInfo.selectTitle(methodLevelUser.getTitle());
 
-
+        accountInfo.fillAccountInformationForm(methodLevelUser);
+        accountInfo.fillAddressInfoForm(methodLevelUser);
+        accountInfo.clickCreateAccountButton();
     }
 }
