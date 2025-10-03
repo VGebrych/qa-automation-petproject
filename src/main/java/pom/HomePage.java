@@ -22,6 +22,9 @@ public class HomePage extends BasePage {
     @FindBy(id = "slider")
     private WebElement homeSlider;
 
+    @FindBy(xpath = "//a[contains(text(),'Logged in as')]")
+    private WebElement loggedInAsText;
+
 
     // ---- Actions
     public void acceptCookies() {
@@ -42,5 +45,12 @@ public class HomePage extends BasePage {
     public boolean isHomeSliderVisible() {
         waitForElementToAppear(homeSlider);
         return homeSlider.isDisplayed();
+    }
+
+    public boolean isLoggedInAsVisible(String username) {
+        waitForElementToAppear(loggedInAsText);
+        String actualText = loggedInAsText.getText().trim();
+        String expectedText = "Logged in as " + username;
+        return actualText.equals(expectedText);
     }
 }

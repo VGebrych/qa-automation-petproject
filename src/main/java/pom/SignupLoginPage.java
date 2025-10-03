@@ -24,8 +24,10 @@ public class SignupLoginPage extends BasePage {
     private WebElement signUpButton;
 
     // ---- Actions
-    public boolean isSignUpTextVisible() {
-        return isElementTextVisible(getSignUpText, "New User Signup!");
+    public boolean isSignUpTextVisible(String expectedText) {
+        waitForElementToAppear(getSignUpText);
+        String actualText = getSignUpText.getText().trim();
+        return actualText.equals(expectedText);
     }
 
     public void enterName(String userName) {

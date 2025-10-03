@@ -80,9 +80,10 @@ public class SignupAccountInfoPage extends BasePage {
     private WebElement createAccountButton;
 
     // ---- Actions
-    public boolean isAccountInformationTitleVisible() {
+    public boolean isAccountInformationTitleVisible(String expectedText) {
         waitForElementToAppear(accountInformationTitle);
-        return isElementTextVisible(accountInformationTitle, "ENTER ACCOUNT INFORMATION");
+        String actualText = accountInformationTitle.getText().trim();
+        return actualText.equals(expectedText);
     }
 
     public void setMrTitleRadioButton() {
@@ -202,9 +203,9 @@ public class SignupAccountInfoPage extends BasePage {
         mobileNumberInput.sendKeys(mobileNumber);
     }
 
-    public void clickCreateAccountButton() {
-        waitForElementToAppear(createAccountButton);
+    public AccountCreatedPage clickCreateAccountButton() {
         click(createAccountButton);
+        return new AccountCreatedPage(driver);
     }
 
     public void fillAccountInformationForm(UserRequest user) {
@@ -218,7 +219,7 @@ public class SignupAccountInfoPage extends BasePage {
         checkSpecialOffersCheckbox();
     }
 
-    public void fillAddressInfoForm(UserRequest user){
+    public void fillAddressInfoForm(UserRequest user) {
         enterFirstName(user.getFirstname());
         enterLastName(user.getLastname());
         enterCompany(user.getCompany());

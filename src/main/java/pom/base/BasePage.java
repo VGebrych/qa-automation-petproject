@@ -49,14 +49,4 @@ public class BasePage {
         element.clear();
         element.sendKeys(text);
     }
-
-    protected String getText(WebElement element) {
-        waitForElementToAppear(element);
-        return element.getText();
-    }
-
-    protected boolean isElementTextVisible(WebElement element, String expectedText) {
-        waitForElementToAppear(element);
-        return element.isDisplayed() && getText(element).equalsIgnoreCase(expectedText);
-    }
 }
