@@ -11,8 +11,17 @@ public class SignupLoginPage extends BasePage {
     }
 
     // ---- Locators
+    @FindBy(css = ".login-form h2")
+    private WebElement getLoginText;
+
     @FindBy(css = ".signup-form h2")
     private WebElement getSignUpText;
+
+    @FindBy(css = ".login-form input[name='email']")
+    private  WebElement loginEmailInput;
+
+    @FindBy(css = ".login-form input[name='password']")
+    private WebElement loginPasswordInput;
 
     @FindBy(css = ".signup-form input[name='name']")
     private WebElement nameInput;
@@ -23,6 +32,12 @@ public class SignupLoginPage extends BasePage {
     @FindBy(css = ".signup-form button.btn.btn-default")
     private WebElement signUpButton;
 
+    @FindBy(css = ".login-form button.btn.btn-default")
+    private WebElement loginButton;
+
+    @FindBy (css = ".login-form p")
+    private WebElement incorrectEmailOrPasswordText;
+
     // ---- Actions
     public boolean isSignUpTextVisible(String expectedText) {
         waitForElementToAppear(getSignUpText);
@@ -30,24 +45,54 @@ public class SignupLoginPage extends BasePage {
         return actualText.equals(expectedText);
     }
 
-    public void enterName(String userName) {
+    public boolean isLoginTextVisible(String expectedText) {
+        waitForElementToAppear(getLoginText);
+        String actualText = getLoginText.getText().trim();
+        return actualText.equals(expectedText);
+    }
+
+    public void enterEmailLoginForm(String email) {
+        waitForElementToAppear(loginEmailInput);
+        loginEmailInput.sendKeys(email);
+    }
+
+    public void enterPasswordLoginForm(String password) {
+        waitForElementToAppear(loginPasswordInput);
+        loginPasswordInput.sendKeys(password);
+    }
+
+    public void enterNameSignUpForm(String userName) {
         waitForElementToAppear(nameInput);
         nameInput.sendKeys(userName);
     }
 
-    public void enterEmail(String email) {
+    public void enterEmailSignUpForm(String email) {
         waitForElementToAppear(emailInput);
         emailInput.sendKeys(email);
     }
 
+    public void fillLoginForm(String email, String password) {
+        enterEmailLoginForm(email);
+        enterPasswordLoginForm(password);
+    }
+
     public void fillSignUpForm(String userName, String email) {
-        enterName(userName);
-        enterEmail(email);
+        enterNameSignUpForm(userName);
+        enterEmailSignUpForm(email);
     }
 
     public SignupAccountInfoPage clickSignUpButton() {
-        waitForElementToAppear(signUpButton);
-        signUpButton.click();
+        click(signUpButton);
         return new SignupAccountInfoPage(driver);
+    }
+
+    public void clickLoginButton() {
+        click(loginButton);
+    }
+
+    public boolean verifyWrongCredentialsAlertText(String expectedText) {
+        waitForElementToAppear(incorrectEmailOrPasswordText);
+        String actualText = incorrectEmailOrPasswordText.getText().trim();
+        return actualText.equals(expectedText);
     }
 }
