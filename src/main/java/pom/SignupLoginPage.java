@@ -36,7 +36,10 @@ public class SignupLoginPage extends BasePage {
     private WebElement loginButton;
 
     @FindBy (css = ".login-form p")
-    private WebElement incorrectEmailOrPasswordText;
+    private WebElement loginFormAlertText;
+
+    @FindBy (css = ".signup-form p")
+    private WebElement signUpFormAlertText;
 
     // ---- Actions
     public boolean isSignUpTextVisible(String expectedText) {
@@ -91,8 +94,14 @@ public class SignupLoginPage extends BasePage {
     }
 
     public boolean verifyWrongCredentialsAlertText(String expectedText) {
-        waitForElementToAppear(incorrectEmailOrPasswordText);
-        String actualText = incorrectEmailOrPasswordText.getText().trim();
+        waitForElementToAppear(loginFormAlertText);
+        String actualText = loginFormAlertText.getText().trim();
+        return actualText.equals(expectedText);
+    }
+
+    public boolean verifyExistingEmailAlertText(String expectedText) {
+        waitForElementToAppear(signUpFormAlertText);
+        String actualText = signUpFormAlertText.getText().trim();
         return actualText.equals(expectedText);
     }
 }

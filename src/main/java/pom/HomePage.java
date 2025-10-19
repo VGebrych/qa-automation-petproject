@@ -25,15 +25,19 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'Logged in as')]")
     private WebElement loggedInAsText;
 
+    @FindBy (partialLinkText = "Logout")
+    private WebElement logOutButton;
+
+    @FindBy (partialLinkText = "Delete Account")
+    private WebElement deleteAccountButton;
+
 
     // ---- Actions
     public void acceptCookies() {
-        waitForElementToAppear(consentButton);
         click(consentButton);
     }
 
     public SignupLoginPage clickSignUpLoginLink() {
-        waitForElementToAppear(signUpLoginLink);
         click(signUpLoginLink);
         return new SignupLoginPage(driver);
     }
@@ -52,5 +56,14 @@ public class HomePage extends BasePage {
         String actualText = loggedInAsText.getText().trim();
         String expectedText = "Logged in as " + username;
         return actualText.equals(expectedText);
+    }
+
+    public void clickLogOutButton() {
+        click(logOutButton);
+    }
+
+    public DeleteAccount clickDeleteAccountButton() {
+        click(deleteAccountButton);
+        return new DeleteAccount(driver);
     }
 }
