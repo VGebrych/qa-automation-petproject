@@ -24,6 +24,9 @@ public class Header extends BasePage {
     @FindBy (partialLinkText = "Delete Account")
     private WebElement deleteAccountButton;
 
+    @FindBy (partialLinkText = "Contact us")
+    private WebElement contactUsLink;
+
 
     //Actions
 
@@ -46,5 +49,10 @@ public class Header extends BasePage {
     public DeleteAccount clickDeleteAccountButton() {
         click(deleteAccountButton);
         return new DeleteAccount(driver);
+    }
+
+    public ContactUsPage clickContactUsLink(){
+        click(contactUsLink);
+        return new ContactUsPage(driver);
     }
 }
