@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import pom.Header;
 import pom.HomePage;
 import utils.Utils;
 
@@ -22,6 +23,7 @@ import java.util.List;
 public class BaseTestUI extends BaseTest {
     public WebDriver driver;
     protected HomePage homePage;
+    protected Header header;
 
     public WebDriver initializeDriver() {
         String browserName = Utils.getGlobalValue("browser");
@@ -59,6 +61,7 @@ public class BaseTestUI extends BaseTest {
     public void launchApplication() {
         driver = initializeDriver();
         homePage = new HomePage(driver);
+        header = new Header(driver);
         homePage.goToHomePage();
         homePage.acceptCookies();
     }
