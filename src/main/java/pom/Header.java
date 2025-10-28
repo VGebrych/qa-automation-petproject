@@ -3,11 +3,30 @@ package pom;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pom.base.BasePage;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Header extends BasePage {
+import java.time.Duration;
+
+public class Header {
+
+    private final WebDriver driver;
+    private final WebDriverWait wait;
+
     public Header(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        PageFactory.initElements(driver, this);
+    }
+
+    private void click(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.click();
+    }
+
+    protected void waitForElementToAppear(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     //Locators
@@ -42,8 +61,9 @@ public class Header extends BasePage {
         return actualText.equals(expectedText);
     }
 
-    public void clickLogOutButton() {
+    public SignupLoginPage clickLogOutButton() {
         click(logOutButton);
+        return new SignupLoginPage(driver);
     }
 
     public DeleteAccount clickDeleteAccountButton() {

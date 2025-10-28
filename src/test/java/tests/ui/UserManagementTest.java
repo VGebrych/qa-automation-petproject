@@ -22,7 +22,7 @@ public class UserManagementTest extends BaseTestUI {
 
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
 
-        SignupLoginPage loginPage = header.clickSignUpLoginLink();
+        SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
         softAssert.assertTrue(loginPage.isSignUpTextVisible("New User Signup!"),
                 "Sign Up text is not visible");
 
@@ -40,7 +40,7 @@ public class UserManagementTest extends BaseTestUI {
                 "ACCOUNT CREATED! title is not visible");
 
         homePage = accountCreatedPage.clickContinueButton();
-        softAssert.assertTrue(header.isLoggedInAsVisible(methodLevelUser.getName()),
+        softAssert.assertTrue(homePage.header.isLoggedInAsVisible(methodLevelUser.getName()),
                 "Logged in as username is not visible or wrong name is displayed");
 
         softAssert.assertAll();
@@ -54,15 +54,15 @@ public class UserManagementTest extends BaseTestUI {
         UserRequest user = getPreconditionUser();
 
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
-        SignupLoginPage loginPage = header.clickSignUpLoginLink();
+        SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
 
         softAssert.assertTrue(loginPage.isLoginTextVisible("Login to your account"),
                 "Login to your account text is not visible");
 
         loginPage.fillLoginForm(user.getEmail(), user.getPassword());
-        loginPage.clickLoginButton();
+        homePage = loginPage.clickLoginButton();
 
-        softAssert.assertTrue(header.isLoggedInAsVisible(user.getName()),
+        softAssert.assertTrue(homePage.header.isLoggedInAsVisible(user.getName()),
                 "Logged in as username is not visible or wrong name is displayed");
         softAssert.assertAll();
     }
@@ -71,7 +71,7 @@ public class UserManagementTest extends BaseTestUI {
     public void loginUserWithInvalidCredentials() {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
-        SignupLoginPage loginPage = header.clickSignUpLoginLink();
+        SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
         softAssert.assertTrue(loginPage.isLoginTextVisible("Login to your account"),
                 "Login to your account text is not visible");
 
@@ -86,10 +86,10 @@ public class UserManagementTest extends BaseTestUI {
     @NeedUser
     public void deleteUserAccount() {
         UserRequest user = getPreconditionUser();
-        SignupLoginPage loginPage = header.clickSignUpLoginLink();
+        SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
         loginPage.fillLoginForm(user.getEmail(), user.getPassword());
-        loginPage.clickLoginButton();
-        DeleteAccount deleteAccount = header.clickDeleteAccountButton();
+        homePage = loginPage.clickLoginButton();
+        DeleteAccount deleteAccount = homePage.header.clickDeleteAccountButton();
         Assert.assertTrue(deleteAccount.isAccountDeletedTitleVisible("ACCOUNT DELETED!"),
                 "ACCOUNT DELETED title is not visible");
         deleteAccount.clickContinueButton();
@@ -103,19 +103,19 @@ public class UserManagementTest extends BaseTestUI {
         UserRequest user = getPreconditionUser();
 
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
-        SignupLoginPage loginPage = header.clickSignUpLoginLink();
+        SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
 
         softAssert.assertTrue(loginPage.isLoginTextVisible("Login to your account"),
                 "Login to your account text is not visible");
 
         loginPage.fillLoginForm(user.getEmail(), user.getPassword());
-        loginPage.clickLoginButton();
+        homePage = loginPage.clickLoginButton();
 
-        softAssert.assertTrue(header.isLoggedInAsVisible(user.getName()),
+        softAssert.assertTrue(homePage.header.isLoggedInAsVisible(user.getName()),
                 "Logged in as username is not visible or wrong name is displayed");
 
-        header.clickLogOutButton();
-        softAssert.assertTrue(loginPage.isLoginTextVisible("Login to your account"),
+        SignupLoginPage loginPageAfterLogOut= homePage.header.clickLogOutButton();
+        softAssert.assertTrue(loginPageAfterLogOut.isLoginTextVisible("Login to your account"),
                 "User is not redirected to login page after logout");
         softAssert.assertAll();
     }
@@ -127,7 +127,7 @@ public class UserManagementTest extends BaseTestUI {
         SoftAssert softAssert = new SoftAssert();
         UserRequest user = getPreconditionUser();
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
-        SignupLoginPage loginPage = header.clickSignUpLoginLink();
+        SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
         softAssert.assertTrue(loginPage.isSignUpTextVisible("New User Signup!"),
                 "Sign Up text is not visible");
         loginPage.fillSignUpForm("SomeName", user.getEmail());

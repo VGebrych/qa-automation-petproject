@@ -89,8 +89,9 @@ public class SignupLoginPage extends BasePage {
         return new SignupAccountInfoPage(driver);
     }
 
-    public void clickLoginButton() {
+    public HomePage clickLoginButton() {
         click(loginButton);
+        return new HomePage(driver);
     }
 
     public boolean verifyWrongCredentialsAlertText(String expectedText) {
