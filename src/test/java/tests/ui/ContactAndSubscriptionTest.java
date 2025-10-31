@@ -13,5 +13,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
         ContactUsPage contactUsPage = homePage.header.clickContactUsLink();
+        softAssert.assertTrue(contactUsPage.isGetInTouchHeaderVisible("GET IN TOUCH"),
+                "'GET IN TOUCH' header is not visible");
     }
 }
