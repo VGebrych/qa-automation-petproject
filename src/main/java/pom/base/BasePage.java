@@ -1,59 +1,32 @@
 package pom.base;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pom.Footer;
 import pom.Header;
+import pom.utils.ElementActions;
 
-import java.time.Duration;
-
-public class BasePage {
-
-    protected WebDriver driver;
-    private final WebDriverWait wait;
+public class BasePage extends ElementActions {
     public final Header header;
+    public final Footer footer;
 
     public BasePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        PageFactory.initElements(driver, this);
+        super(driver);
         this.header = new Header(driver);
+        this.footer = new Footer(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    // ----- Generic waits -----
-    protected void waitForElementToAppear(By locator) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    public void refreshPage() {
+        driver.navigate().refresh();
     }
 
-    protected void waitForElementToAppear(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
+    public String getPageTitle() {
+        return driver.getTitle();
     }
 
-    protected void waitForTextToAppear(By locator, String text) {
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 
-    protected void waitForTextToAppear(WebElement element, String text) {
-        wait.until(ExpectedConditions.textToBePresentInElement(element, text));
-    }
-
-    // ----- Common actions -----
-    protected void click(WebElement element) {
-        waitForElementToAppear(element);
-        element.click();
-    }
-
-    protected void type(WebElement element, String text) {
-        waitForElementToAppear(element);
-        element.clear();
-        element.sendKeys(text);
-    }
-
-    protected void acceptAlert() {
-        wait.until(ExpectedConditions.alertIsPresent());
-        driver.switchTo().alert().accept();
-    }
 }

@@ -31,4 +31,8 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
         softAssert.assertAll();
     }
+
+    @Test(testName = "Test Case 10: Verify Subscription in home page")
+    public void testSubscriptionInHomePage() {
+    }
 }
