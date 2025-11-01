@@ -32,6 +32,12 @@ public class ContactUsPage extends BasePage {
     @FindBy (name = "submit")
     private WebElement submitButton;
 
+    @FindBy (css = ".status.alert.alert-success")
+    private WebElement successMessage;
+
+    @FindBy(css = ".btn-success")
+    private WebElement homeButton;
+
     // ---- Actions
     public boolean isGetInTouchHeaderVisible(String expectedText) {
         waitForElementToAppear(getInTouchHeader);
@@ -39,23 +45,19 @@ public class ContactUsPage extends BasePage {
     }
 
     public void enterName(String name) {
-        waitForElementToAppear(nameInput);
-        nameInput.sendKeys(name);
+        type(nameInput, name);
     }
 
     public void enterEmail(String email) {
-        waitForElementToAppear(emailInput);
-        emailInput.sendKeys(email);
+        type(emailInput, email);
     }
 
     public void enterSubject(String subject) {
-        waitForElementToAppear(subjectInput);
-        subjectInput.sendKeys(subject);
+        type(subjectInput, subject);
     }
 
     public void enterMessage(String message) {
-        waitForElementToAppear(messageTextArea);
-        messageTextArea.sendKeys(message);
+        type(messageTextArea, message);
     }
 
     public void uploadFile(String filePath) {
@@ -70,7 +72,16 @@ public class ContactUsPage extends BasePage {
     }
 
     public void clickSubmitButton() {
-        waitForElementToAppear(submitButton);
-        submitButton.click();
+        click(submitButton);
+        acceptAlert();
+    }
+
+    public boolean verifySuccessMessage(String expectedMessage) {
+        waitForElementToAppear(successMessage);
+        return successMessage.isDisplayed() && successMessage.getText().trim().equals(expectedMessage);
+    }
+
+    public void clickHomeButton() {
+        click(homeButton);
     }
 }

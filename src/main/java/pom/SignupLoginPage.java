@@ -18,7 +18,7 @@ public class SignupLoginPage extends BasePage {
     private WebElement getSignUpText;
 
     @FindBy(css = ".login-form input[name='email']")
-    private  WebElement loginEmailInput;
+    private WebElement loginEmailInput;
 
     @FindBy(css = ".login-form input[name='password']")
     private WebElement loginPasswordInput;
@@ -35,10 +35,10 @@ public class SignupLoginPage extends BasePage {
     @FindBy(css = ".login-form button.btn.btn-default")
     private WebElement loginButton;
 
-    @FindBy (css = ".login-form p")
+    @FindBy(css = ".login-form p")
     private WebElement loginFormAlertText;
 
-    @FindBy (css = ".signup-form p")
+    @FindBy(css = ".signup-form p")
     private WebElement signUpFormAlertText;
 
     // ---- Actions
@@ -55,23 +55,19 @@ public class SignupLoginPage extends BasePage {
     }
 
     public void enterEmailLoginForm(String email) {
-        waitForElementToAppear(loginEmailInput);
-        loginEmailInput.sendKeys(email);
+        type(loginEmailInput, email);
     }
 
     public void enterPasswordLoginForm(String password) {
-        waitForElementToAppear(loginPasswordInput);
-        loginPasswordInput.sendKeys(password);
+        type(loginPasswordInput, password);
     }
 
     public void enterNameSignUpForm(String userName) {
-        waitForElementToAppear(nameInput);
-        nameInput.sendKeys(userName);
+        type(nameInput, userName);
     }
 
     public void enterEmailSignUpForm(String email) {
-        waitForElementToAppear(emailInput);
-        emailInput.sendKeys(email);
+        type(emailInput, email);
     }
 
     public void fillLoginForm(String email, String password) {

@@ -51,4 +51,9 @@ public class BasePage {
         element.clear();
         element.sendKeys(text);
     }
+
+    protected void acceptAlert() {
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
+    }
 }

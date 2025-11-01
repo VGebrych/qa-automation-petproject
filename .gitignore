@@ -3,6 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 /target
+/testdata/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -42,3 +43,4 @@ build/
 ### Allure ###
 target/allure-results/
 /.allure
+/src/test/resources/testdata/upload/contact_test_file.txt

@@ -1,24 +1,39 @@
 package utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
-public class Utils {
+public final class Utils {
 
-    private static final Properties prop = new Properties();
+    private static final Properties PROPERTIES = new Properties();
+    private static final String CONFIG_PATH = "src/test/resources/GlobalData.properties";
 
     static {
-        try (FileInputStream fis = new FileInputStream(System.getProperty("user.dir") +
-                "/src/test/resources/GlobalData.properties")) {
-            prop.load(fis);
+        Path path = Paths.get(CONFIG_PATH).toAbsolutePath();
+        if (Files.notExists(path)) {
+            throw new IllegalStateException("Configuration file not found: " + path);
+        }
+
+        try (InputStream input = Files.newInputStream(path)) {
+            PROPERTIES.load(input);
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to load GlobalData.properties", e);
+            throw new RuntimeException("Failed to load configuration from " + path, e);
         }
     }
 
+    private Utils() {
+        // prevent instantiation
+    }
+
     public static String getGlobalValue(String key) {
-        return prop.getProperty(key);
+        String value = PROPERTIES.getProperty(key);
+        if (value == null) {
+            throw new IllegalArgumentException("Missing key in GlobalData.properties: " + key);
+        }
+        return value.trim();
     }
 }

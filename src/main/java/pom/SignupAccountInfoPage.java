@@ -105,14 +105,11 @@ public class SignupAccountInfoPage extends BasePage {
     }
 
     public void enterName(String userName) {
-        waitForElementToAppear(nameInput);
-        nameInput.clear();
-        nameInput.sendKeys(userName);
+        type(nameInput, userName);
     }
 
     public void enterPassword(String password) {
-        waitForElementToAppear(passwordInput);
-        passwordInput.sendKeys(password);
+        type(passwordInput, password);
     }
 
     public void selectDay(String day) {
@@ -145,33 +142,24 @@ public class SignupAccountInfoPage extends BasePage {
     }
 
     public void enterFirstName(String firstName) {
-        waitForElementToAppear(firstNameInput);
-        firstNameInput.clear();
-        firstNameInput.sendKeys(firstName);
+        type(firstNameInput, firstName);
     }
 
     public void enterLastName(String lastName) {
-        waitForElementToAppear(lastNameInput);
-        lastNameInput.clear();
-        lastNameInput.sendKeys(lastName);
+        type(lastNameInput, lastName);
     }
 
     public void enterCompany(String company) {
-        waitForElementToAppear(companyInput);
-        companyInput.clear();
-        companyInput.sendKeys(company);
+        type(companyInput, company);
     }
 
     public void enterAddress1(String address1) {
-        waitForElementToAppear(address1Input);
-        address1Input.clear();
-        address1Input.sendKeys(address1);
+        type(address1Input, address1);
     }
 
     public void enterAddress2(String address2) {
-        waitForElementToAppear(address2Input);
-        address2Input.clear();
-        address2Input.sendKeys(address2);
+        type(address2Input, address2);
+
     }
 
     public void selectCountry(String country) {
@@ -180,27 +168,19 @@ public class SignupAccountInfoPage extends BasePage {
     }
 
     public void enterState(String state) {
-        waitForElementToAppear(stateInput);
-        stateInput.clear();
-        stateInput.sendKeys(state);
+        type(stateInput, state);
     }
 
     public void enterCity(String city) {
-        waitForElementToAppear(cityInput);
-        cityInput.clear();
-        cityInput.sendKeys(city);
+        type(cityInput, city);
     }
 
     public void enterZipcode(String zipcode) {
-        waitForElementToAppear(zipcodeInput);
-        zipcodeInput.clear();
-        zipcodeInput.sendKeys(zipcode);
+        type(zipcodeInput, zipcode);
     }
 
     public void enterMobileNumber(String mobileNumber) {
-        waitForElementToAppear(mobileNumberInput);
-        mobileNumberInput.clear();
-        mobileNumberInput.sendKeys(mobileNumber);
+        type(mobileNumberInput, mobileNumber);
     }
 
     public AccountCreatedPage clickCreateAccountButton() {
