@@ -44,12 +44,6 @@ public class UserAccountManagementTest extends BaseTestApi {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(userDetailsResponse.getResponseCode(), 200);
 
-        System.out.println("*******************************");
-
-        System.out.println(getPreconditionUser().getEmail() + getPreconditionUser().getPassword());
-
-        System.out.println("*******************************");
-
         ApiTestUtils.compareUserAccounts(preconditionUser, getUser, softAssert);
 
         softAssert.assertAll();

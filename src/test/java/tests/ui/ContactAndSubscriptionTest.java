@@ -1,18 +1,21 @@
 package tests.ui;
 
 import base.BaseTestUI;
+import base.annotations.NeedCleanUp;
 import base.annotations.NeedUser;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobjects.api.account.UserRequest;
+import pom.CartPage;
 import pom.ContactUsPage;
 import testUtils.FileUtils;
 
+@NeedUser
+@NeedCleanUp
 public class ContactAndSubscriptionTest extends BaseTestUI {
-    //10, 11 - Contact Us and Subscription tests will be implemented here
+    //11 - Contact Us and Subscription tests will be implemented here
 
     @Test(testName = "TC06 - Contact Us Form Submission")
-    @NeedUser
     public void testContactUsFormSubmission() {
         UserRequest user = getPreconditionUser();
         SoftAssert softAssert = new SoftAssert();
@@ -32,7 +35,34 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "Test Case 10: Verify Subscription in home page")
+    @Test(testName = "TC 10 - Verify Subscription in home page")
     public void testSubscriptionInHomePage() {
+        UserRequest user = getPreconditionUser();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
+        homePage.scrollToBottom();
+        softAssert.assertTrue(homePage.footer.verifyNewsletterHeader("SUBSCRIPTION"),
+                "'SUBSCRIPTION' header is not visible in footer");
+        homePage.footer.subscribeWithEmail(user.getEmail());
+        softAssert.assertTrue(homePage.footer.verifySubscriptionSuccessMessage(
+                "You have been successfully subscribed!"),
+                "Subscription success message is not displayed as expected.");
+        softAssert.assertAll();
+    }
+
+    @Test (testName = "TC11 - Verify Subscription in Cart page")
+    public void testSubscriptionInCartPage() {
+        UserRequest user = getPreconditionUser();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
+        CartPage cartpage = homePage.header.clickCartLink();
+        cartpage.scrollToBottom();
+        softAssert.assertTrue(cartpage.footer.verifyNewsletterHeader("SUBSCRIPTION"),
+                "'SUBSCRIPTION' header is not visible in footer of Cart page");
+        cartpage.footer.subscribeWithEmail(user.getEmail());
+        softAssert.assertTrue(cartpage.footer.verifySubscriptionSuccessMessage(
+                        "You have been successfully subscribed!"),
+                "Subscription success message is not displayed as expected.");
+        softAssert.assertAll();
     }
 }

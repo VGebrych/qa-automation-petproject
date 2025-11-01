@@ -1,5 +1,6 @@
 package pom.base;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import pom.Footer;
@@ -27,6 +28,14 @@ public class BasePage extends ElementActions {
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    public void scrollToTop() {
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+    }
+
+    public void scrollToBottom() {
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }
 
 }

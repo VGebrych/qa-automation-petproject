@@ -15,6 +15,9 @@ public class Header extends ElementActions {
 
     //Locators
 
+    @FindBy (css = "#header a[href*='cart']")
+    private WebElement CartLink;
+
     @FindBy(linkText = "Signup / Login")
     private WebElement signUpLoginLink;
 
@@ -32,6 +35,11 @@ public class Header extends ElementActions {
 
 
     //Actions
+
+    public CartPage clickCartLink() {
+        click(CartLink);
+        return new CartPage(driver);
+    }
 
     public SignupLoginPage clickSignUpLoginLink() {
         click(signUpLoginLink);
