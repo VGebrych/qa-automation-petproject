@@ -51,4 +51,9 @@ public class ElementActions {
         wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
     }
+
+    public boolean verifyElementText(WebElement element, String expectedText) {
+        waitForElementToAppear(element);
+        return element.isDisplayed() && element.getText().trim().equals(expectedText);
+    }
 }

@@ -19,9 +19,7 @@ public class DeleteAccount extends BasePage {
 
     // ---- Actions
     public boolean isAccountDeletedTitleVisible(String expectedTitle) {
-        waitForElementToAppear(accountDeletedTitle);
-        String actualTitle = accountDeletedTitle.getText().trim();
-        return actualTitle.equals(expectedTitle);
+        return verifyElementText(accountDeletedTitle, expectedTitle);
     }
 
     public void clickContinueButton() {

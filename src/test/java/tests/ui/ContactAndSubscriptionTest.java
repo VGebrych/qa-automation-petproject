@@ -13,7 +13,6 @@ import testUtils.FileUtils;
 @NeedUser
 @NeedCleanUp
 public class ContactAndSubscriptionTest extends BaseTestUI {
-    //11 - Contact Us and Subscription tests will be implemented here
 
     @Test(testName = "TC06 - Contact Us Form Submission")
     public void testContactUsFormSubmission() {
@@ -45,12 +44,12 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
                 "'SUBSCRIPTION' header is not visible in footer");
         homePage.footer.subscribeWithEmail(user.getEmail());
         softAssert.assertTrue(homePage.footer.verifySubscriptionSuccessMessage(
-                "You have been successfully subscribed!"),
+                        "You have been successfully subscribed!"),
                 "Subscription success message is not displayed as expected.");
         softAssert.assertAll();
     }
 
-    @Test (testName = "TC11 - Verify Subscription in Cart page")
+    @Test(testName = "TC11 - Verify Subscription in Cart page")
     public void testSubscriptionInCartPage() {
         UserRequest user = getPreconditionUser();
         SoftAssert softAssert = new SoftAssert();

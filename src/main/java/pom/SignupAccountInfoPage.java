@@ -81,9 +81,7 @@ public class SignupAccountInfoPage extends BasePage {
 
     // ---- Actions
     public boolean isAccountInformationTitleVisible(String expectedText) {
-        waitForElementToAppear(accountInformationTitle);
-        String actualText = accountInformationTitle.getText().trim();
-        return actualText.equals(expectedText);
+        return verifyElementText(accountInformationTitle, expectedText);
     }
 
     public void setMrTitleRadioButton() {

@@ -15,11 +15,14 @@ public class Header extends ElementActions {
 
     //Locators
 
-    @FindBy (css = "#header a[href*='cart']")
+    @FindBy(css = "#header a[href*='cart']")
     private WebElement CartLink;
 
     @FindBy(linkText = "Signup / Login")
     private WebElement signUpLoginLink;
+
+    @FindBy(partialLinkText = "Test Cases")
+    private WebElement TestCasesLink;
 
     @FindBy(xpath = "//a[contains(text(),'Logged in as')]")
     private WebElement loggedInAsText;
@@ -46,11 +49,14 @@ public class Header extends ElementActions {
         return new SignupLoginPage(driver);
     }
 
+    public TestCasesPage clickTestCasesLink() {
+        click(TestCasesLink);
+        return new TestCasesPage(driver);
+    }
+
     public boolean isLoggedInAsVisible(String username) {
-        waitForElementToAppear(loggedInAsText);
-        String actualText = loggedInAsText.getText().trim();
         String expectedText = "Logged in as " + username;
-        return actualText.equals(expectedText);
+        return verifyElementText(loggedInAsText, expectedText);
     }
 
     public SignupLoginPage clickLogOutButton() {

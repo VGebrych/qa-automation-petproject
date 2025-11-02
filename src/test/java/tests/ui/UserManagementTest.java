@@ -114,7 +114,7 @@ public class UserManagementTest extends BaseTestUI {
         softAssert.assertTrue(homePage.header.isLoggedInAsVisible(user.getName()),
                 "Logged in as username is not visible or wrong name is displayed");
 
-        SignupLoginPage loginPageAfterLogOut= homePage.header.clickLogOutButton();
+        SignupLoginPage loginPageAfterLogOut = homePage.header.clickLogOutButton();
         softAssert.assertTrue(loginPageAfterLogOut.isLoginTextVisible("Login to your account"),
                 "User is not redirected to login page after logout");
         softAssert.assertAll();

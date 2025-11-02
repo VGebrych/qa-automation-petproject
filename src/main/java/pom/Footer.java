@@ -26,8 +26,7 @@ public class Footer extends ElementActions {
 
     //Actions
     public boolean verifyNewsletterHeader(String expectedText){
-        waitForElementToAppear(newsletterHeader);
-        return newsletterHeader.getText().trim().equals(expectedText);
+        return verifyElementText(newsletterHeader, expectedText);
     }
 
     public void enterSubscriptionEmail(String email){
@@ -44,7 +43,6 @@ public class Footer extends ElementActions {
     }
 
     public boolean verifySubscriptionSuccessMessage(String expectedMessage){
-        waitForElementToAppear(subscribeSuccessMessage);
-        return subscribeSuccessMessage.getText().trim().equals(expectedMessage);
+        return verifyElementText(subscribeSuccessMessage, expectedMessage);
     }
 }

@@ -11,28 +11,28 @@ public class ContactUsPage extends BasePage {
     }
 
     // ---- Locators
-    @FindBy (css = ".contact-form h2[class='title text-center']")
+    @FindBy(css = ".contact-form h2[class='title text-center']")
     private WebElement getInTouchHeader;
 
-    @FindBy (name = "name")
+    @FindBy(name = "name")
     private WebElement nameInput;
 
-    @FindBy (name = "email")
+    @FindBy(name = "email")
     private WebElement emailInput;
 
-    @FindBy (name = "subject")
+    @FindBy(name = "subject")
     private WebElement subjectInput;
 
-    @FindBy (name = "message")
+    @FindBy(name = "message")
     private WebElement messageTextArea;
 
-    @FindBy (name = "upload_file")
+    @FindBy(name = "upload_file")
     private WebElement uploadFileInput;
 
-    @FindBy (name = "submit")
+    @FindBy(name = "submit")
     private WebElement submitButton;
 
-    @FindBy (css = ".status.alert.alert-success")
+    @FindBy(css = ".status.alert.alert-success")
     private WebElement successMessage;
 
     @FindBy(css = ".btn-success")
@@ -40,8 +40,7 @@ public class ContactUsPage extends BasePage {
 
     // ---- Actions
     public boolean isGetInTouchHeaderVisible(String expectedText) {
-        waitForElementToAppear(getInTouchHeader);
-        return getInTouchHeader.isDisplayed() && getInTouchHeader.getText().trim().equals(expectedText);
+        return verifyElementText(getInTouchHeader, expectedText);
     }
 
     public void enterName(String name) {
@@ -77,8 +76,7 @@ public class ContactUsPage extends BasePage {
     }
 
     public boolean verifySuccessMessage(String expectedMessage) {
-        waitForElementToAppear(successMessage);
-        return successMessage.isDisplayed() && successMessage.getText().trim().equals(expectedMessage);
+        return verifyElementText(successMessage, expectedMessage);
     }
 
     public void clickHomeButton() {

@@ -43,15 +43,11 @@ public class SignupLoginPage extends BasePage {
 
     // ---- Actions
     public boolean isSignUpTextVisible(String expectedText) {
-        waitForElementToAppear(getSignUpText);
-        String actualText = getSignUpText.getText().trim();
-        return actualText.equals(expectedText);
+        return verifyElementText(getSignUpText, expectedText);
     }
 
     public boolean isLoginTextVisible(String expectedText) {
-        waitForElementToAppear(getLoginText);
-        String actualText = getLoginText.getText().trim();
-        return actualText.equals(expectedText);
+        return verifyElementText(getLoginText, expectedText);
     }
 
     public void enterEmailLoginForm(String email) {
@@ -91,14 +87,10 @@ public class SignupLoginPage extends BasePage {
     }
 
     public boolean verifyWrongCredentialsAlertText(String expectedText) {
-        waitForElementToAppear(loginFormAlertText);
-        String actualText = loginFormAlertText.getText().trim();
-        return actualText.equals(expectedText);
+        return verifyElementText(loginFormAlertText, expectedText);
     }
 
     public boolean verifyExistingEmailAlertText(String expectedText) {
-        waitForElementToAppear(signUpFormAlertText);
-        String actualText = signUpFormAlertText.getText().trim();
-        return actualText.equals(expectedText);
+        return verifyElementText(signUpFormAlertText, expectedText);
     }
 }

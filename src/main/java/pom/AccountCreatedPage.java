@@ -18,9 +18,7 @@ public class AccountCreatedPage extends BasePage {
 
     // ---- Actions
     public boolean isAccountCreatedTitleVisible(String expectedText) {
-        waitForElementToAppear(accountCreatedTitle);
-        String actualText = accountCreatedTitle.getText().trim();
-        return actualText.equalsIgnoreCase(expectedText);
+        return verifyElementText(accountCreatedTitle, expectedText);
     }
 
     public HomePage clickContinueButton() {
