@@ -10,7 +10,7 @@ public class TestCasesPage extends BasePage {
         super(driver);
     }
 
-    @FindBy (css = ".title.title.text-center b")
+    @FindBy(css = ".title.title.text-center b")
     private WebElement testCasesTitle;
 
 

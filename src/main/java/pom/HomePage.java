@@ -19,6 +19,12 @@ public class HomePage extends BasePage {
     @FindBy(id = "slider")
     private WebElement homeSlider;
 
+    @FindBy(id = "scrollUp")
+    private WebElement scrollUpButton;
+
+    @FindBy(css = ".item.active [class='col-sm-6'] h2")
+    private WebElement sliderHeaderText;
+
     // ---- Actions
     public void acceptCookies() {
         click(consentButton);
@@ -31,5 +37,13 @@ public class HomePage extends BasePage {
     public boolean isHomeSliderVisible() {
         waitForElementToAppear(homeSlider);
         return homeSlider.isDisplayed();
+    }
+
+    public void scrollUpWithArrowButton() {
+        click(scrollUpButton);
+    }
+
+    public boolean isSliderHeaderTextVisible(String expectedText) {
+        return verifyElementText(sliderHeaderText, expectedText);
     }
 }

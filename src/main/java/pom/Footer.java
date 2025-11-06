@@ -13,7 +13,7 @@ public class Footer extends ElementActions {
     }
 
     @FindBy (css = ".single-widget h2")
-    private WebElement newsletterHeader;
+    private WebElement subscriptionHeader;
 
     @FindBy (id = "susbscribe_email")
     private WebElement subscriptionEmailInput;
@@ -25,8 +25,8 @@ public class Footer extends ElementActions {
     private WebElement subscribeSuccessMessage;
 
     //Actions
-    public boolean verifyNewsletterHeader(String expectedText){
-        return verifyElementText(newsletterHeader, expectedText);
+    public boolean verifySubscriptionHeader(String expectedText){
+        return verifyElementText(subscriptionHeader, expectedText);
     }
 
     public void enterSubscriptionEmail(String email){

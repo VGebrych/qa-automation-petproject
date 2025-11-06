@@ -40,7 +40,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
         homePage.scrollToBottom();
-        softAssert.assertTrue(homePage.footer.verifyNewsletterHeader("SUBSCRIPTION"),
+        softAssert.assertTrue(homePage.footer.verifySubscriptionHeader("SUBSCRIPTION"),
                 "'SUBSCRIPTION' header is not visible in footer");
         homePage.footer.subscribeWithEmail(user.getEmail());
         softAssert.assertTrue(homePage.footer.verifySubscriptionSuccessMessage(
@@ -56,7 +56,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
         softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
         CartPage cartpage = homePage.header.clickCartLink();
         cartpage.scrollToBottom();
-        softAssert.assertTrue(cartpage.footer.verifyNewsletterHeader("SUBSCRIPTION"),
+        softAssert.assertTrue(cartpage.footer.verifySubscriptionHeader("SUBSCRIPTION"),
                 "'SUBSCRIPTION' header is not visible in footer of Cart page");
         cartpage.footer.subscribeWithEmail(user.getEmail());
         softAssert.assertTrue(cartpage.footer.verifySubscriptionSuccessMessage(

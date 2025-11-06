@@ -14,6 +14,8 @@ public class ElementActions {
     protected WebDriverWait wait;
 
     public ElementActions(WebDriver driver) {
+        if (driver == null)
+            throw new IllegalArgumentException("WebDriver must not be null");
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
