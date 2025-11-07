@@ -15,6 +15,9 @@ public class Header extends ElementActions {
 
     //Locators
 
+    @FindBy(css = ".nav.navbar-nav a[href*='products']")
+    private WebElement ProductsLink;
+
     @FindBy(css = "#header a[href*='cart']")
     private WebElement CartLink;
 
@@ -38,6 +41,10 @@ public class Header extends ElementActions {
 
 
     //Actions
+    public ProductsPage clickProductsLink() {
+        click(ProductsLink);
+        return new ProductsPage(driver);
+    }
 
     public CartPage clickCartLink() {
         click(CartLink);

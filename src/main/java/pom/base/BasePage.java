@@ -2,6 +2,7 @@ package pom.base;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import pom.Footer;
 import pom.Header;
@@ -28,6 +29,11 @@ public class BasePage extends ElementActions {
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    public boolean isAtPage(String expectedUrlSubstring, WebElement webElement, String elementText) {
+        return getCurrentUrl().contains(expectedUrlSubstring) &&
+                verifyElementText(webElement, elementText);
     }
 
     public void scrollToTop() {
