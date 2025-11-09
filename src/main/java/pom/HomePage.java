@@ -1,9 +1,11 @@
 package pom;
 
+import org.testng.asserts.SoftAssert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pom.base.BasePage;
+
 import utils.Utils;
 
 public class HomePage extends BasePage {
@@ -34,9 +36,13 @@ public class HomePage extends BasePage {
         driver.get(Utils.getGlobalValue("baseURI"));
     }
 
-    public boolean isHomeSliderVisible() {
-        waitForElementToAppear(homeSlider);
-        return homeSlider.isDisplayed();
+    public void assertAtHomePage(SoftAssert softAssert) {
+        boolean result = isAtPage(
+                "https://automationexercise.com/",
+                sliderHeaderText,
+                "Full-Fledged practice website for Automation Engineers"
+        );
+        softAssert.assertTrue(result, "Home page is not visible, or URL is incorrect, or text is not matching.");
     }
 
     public void scrollUpWithArrowButton() {

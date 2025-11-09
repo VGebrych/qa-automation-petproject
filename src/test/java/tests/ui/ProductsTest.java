@@ -8,10 +8,10 @@ import pom.ProductsPage;
 
 public class ProductsTest extends BaseTestUI {
     //09, 18,19, 21,22 - Products tests will be implemented here
-    @Test (testName = "TC08: Verify All Products and product detail page")
+    @Test(testName = "TC08: Verify All Products and product detail page")
     public void verifyAllProductsAndProductDetailPage() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(homePage.isHomeSliderVisible(), "Home page is not visible");
+        homePage.assertAtHomePage(softAssert);
         ProductsPage productsPage = homePage.header.clickProductsLink();
         Assert.assertTrue(productsPage.isAtProductsPage(), "Not at Products page");
 

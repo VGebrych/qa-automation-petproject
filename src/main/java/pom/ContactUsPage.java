@@ -79,7 +79,8 @@ public class ContactUsPage extends BasePage {
         return verifyElementText(successMessage, expectedMessage);
     }
 
-    public void clickHomeButton() {
+    public HomePage clickHomeButton() {
         click(homeButton);
+        return new HomePage(driver);
     }
 }
