@@ -20,7 +20,7 @@ public class UserManagementTest extends BaseTestUI {
         methodLevelUser = UserFactory.createDefaultUser();
         SoftAssert softAssert = new SoftAssert();
 
-        homePage.assertAtHomePage(softAssert);
+        homePage.isAtHomePage();
 
         SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
         softAssert.assertTrue(loginPage.isSignUpTextVisible("New User Signup!"),
@@ -53,7 +53,7 @@ public class UserManagementTest extends BaseTestUI {
         SoftAssert softAssert = new SoftAssert();
         UserRequest user = getPreconditionUser();
 
-        homePage.assertAtHomePage(softAssert);
+        homePage.isAtHomePage();
         SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
 
         softAssert.assertTrue(loginPage.isLoginTextVisible("Login to your account"),
@@ -70,7 +70,7 @@ public class UserManagementTest extends BaseTestUI {
     @Test(testName = "TC 03 - Login User with incorrect email and password")
     public void loginUserWithInvalidCredentials() {
         SoftAssert softAssert = new SoftAssert();
-        homePage.assertAtHomePage(softAssert);
+        homePage.isAtHomePage();
         SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
         softAssert.assertTrue(loginPage.isLoginTextVisible("Login to your account"),
                 "Login to your account text is not visible");
@@ -102,7 +102,7 @@ public class UserManagementTest extends BaseTestUI {
         SoftAssert softAssert = new SoftAssert();
         UserRequest user = getPreconditionUser();
 
-        homePage.assertAtHomePage(softAssert);
+        homePage.isAtHomePage();
         SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
 
         softAssert.assertTrue(loginPage.isLoginTextVisible("Login to your account"),
@@ -126,7 +126,7 @@ public class UserManagementTest extends BaseTestUI {
     public void registerUserWithExistingEmail() {
         SoftAssert softAssert = new SoftAssert();
         UserRequest user = getPreconditionUser();
-        homePage.assertAtHomePage(softAssert);
+        homePage.isAtHomePage();
         SignupLoginPage loginPage = homePage.header.clickSignUpLoginLink();
         softAssert.assertTrue(loginPage.isSignUpTextVisible("New User Signup!"),
                 "Sign Up text is not visible");

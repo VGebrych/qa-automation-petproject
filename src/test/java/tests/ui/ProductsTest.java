@@ -1,9 +1,9 @@
 package tests.ui;
 
 import base.BaseTestUI;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pom.ProductDetailPage;
 import pom.ProductsPage;
 
 public class ProductsTest extends BaseTestUI {
@@ -11,10 +11,13 @@ public class ProductsTest extends BaseTestUI {
     @Test(testName = "TC08: Verify All Products and product detail page")
     public void verifyAllProductsAndProductDetailPage() {
         SoftAssert softAssert = new SoftAssert();
-        homePage.assertAtHomePage(softAssert);
+        homePage.isAtHomePage();
         ProductsPage productsPage = homePage.header.clickProductsLink();
-        Assert.assertTrue(productsPage.isAtProductsPage(), "Not at Products page");
-
-
+        softAssert.assertTrue(productsPage.isAtProductsPage(), "Not at Products page");
+        softAssert.assertTrue(productsPage.areProductsListVisible(), "Products are not visible");
+        ProductDetailPage productDetailsPage = productsPage.clickOnFirstProductViewButton();
+        softAssert.assertTrue(productDetailsPage.isAtProductDetailPage());
+        productDetailsPage.verifyProductDetailsVisible(softAssert);
+        softAssert.assertAll();
     }
 }
