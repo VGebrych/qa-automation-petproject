@@ -14,14 +14,28 @@ public class ProductsPage extends BasePage {
     }
 
     @FindBy(css = ".title.text-center")
-    private WebElement allProductsHeader;
+    private WebElement ProductsHeader;
 
     @FindBy(className = "product-image-wrapper")
     List<WebElement> productCardsList;
 
+    private By productNameInCard = By.tagName("p");
+
+    @FindBy (id = "search_product")
+    private WebElement searchInputField;
+
+    @FindBy (id = "submit_search")
+    private WebElement searchButton;
+
+
+
 
     public boolean isAtProductsPage() {
-        return isAtPage("/products", allProductsHeader, "ALL PRODUCTS");
+        return isAtPage("/products", ProductsHeader, "ALL PRODUCTS");
+    }
+
+    public boolean verifyProductsHeaderText(String expectedHeaderText){
+        return verifyElementText(ProductsHeader, expectedHeaderText);
     }
 
     public boolean areProductsListVisible() {
@@ -37,17 +51,31 @@ public class ProductsPage extends BasePage {
     }
 
     public void clickProductViewByIndex(int index) {
+
         if (productCardsList.isEmpty() || index < 0 || index >= productCardsList.size()) {
             throw new IllegalStateException("No product found at index: " + index);
         }
 
         WebElement product = productCardsList.get(index);
         WebElement viewButton = product.findElement(By.linkText("View Product"));
-        click(viewButton);
+        safeClick(viewButton);
     }
 
     public ProductDetailPage clickOnFirstProductViewButton() {
         clickProductViewByIndex(0);
         return new ProductDetailPage(driver);
+    }
+
+    public void enterSearchProduct(String productName) {
+        type(searchInputField, productName);
+    }
+
+    public void clickSearchButton() {
+        click(searchButton);
+    }
+
+    public void searchProduct(String productName) {
+        enterSearchProduct(productName);
+        clickSearchButton();
     }
 }
