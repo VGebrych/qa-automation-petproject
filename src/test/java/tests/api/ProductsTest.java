@@ -10,6 +10,7 @@ import org.testng.asserts.SoftAssert;
 import pageobjects.api.products.Product;
 import pageobjects.api.products.ResponseProducts;
 import testUtils.ApiTestUtils;
+import testUtils.TestDataProvider;
 
 import java.util.Arrays;
 
@@ -18,18 +19,6 @@ import static io.restassured.RestAssured.given;
 public class ProductsTest extends BaseTestApi {
     private final String productsApiPath = "productsList";
     private final String searchProductApiPath = "searchProduct";
-
-    @DataProvider(name = "searchQueries")
-    public Object[][] searchQueries() {
-        return new Object[][]{
-                {"top", false},
-                {"jean", false},
-                {"tshirt", false},
-                {"abrakadabra", true},  // expecting empty list
-                {"", false},            // behaves like getAllProducts → non-empty
-                {null, false}           // behaves like getAllProducts → non-empty
-        };
-    }
 
     @Test(testName = "API 1: Get All Products List", groups = {"API"})
     public void getAllProductList() {
@@ -63,7 +52,8 @@ public class ProductsTest extends BaseTestApi {
                 "This request method is not supported.");
     }
 
-    @Test(dataProvider = "searchQueries", testName = "API 5: POST To Search Product", groups = {"API"})
+    @Test(dataProvider = "searchQueries", dataProviderClass = TestDataProvider.class,
+            testName = "API 5: POST To Search Product", groups = {"API"})
     public void postToSearchProduct(String query, boolean expectEmpty) {
         ResponseProducts searchProductResponse = given()
                 .contentType(ContentType.URLENC)
@@ -112,8 +102,8 @@ public class ProductsTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test (testName = "API 6: POST To Search Product without search_product parameter",  groups = {"API"})
-    public void POSTToSearchProductWithoutParameter(){
+    @Test(testName = "API 6: POST To Search Product without search_product parameter", groups = {"API"})
+    public void POSTToSearchProductWithoutParameter() {
         Response productListResponse = given()
                 .when().post(searchProductApiPath)
                 .then()
