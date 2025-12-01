@@ -1,16 +1,15 @@
-package pom;
+package pageobjects.ui.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pom.base.BasePage;
+import pageobjects.ui.pom.base.BasePage;
 
 public class ContactUsPage extends BasePage {
     public ContactUsPage(WebDriver driver) {
         super(driver);
     }
 
-    // ---- Locators
     @FindBy(css = ".contact-form h2[class='title text-center']")
     private WebElement getInTouchHeader;
 
@@ -38,7 +37,6 @@ public class ContactUsPage extends BasePage {
     @FindBy(css = ".btn-success")
     private WebElement homeButton;
 
-    // ---- Actions
     public boolean isGetInTouchHeaderVisible(String expectedText) {
         return verifyElementText(getInTouchHeader, expectedText);
     }

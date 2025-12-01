@@ -1,10 +1,10 @@
-package pom;
+package pageobjects.ui.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pom.utils.ElementActions;
+import pageobjects.ui.pom.utils.ElementActions;
 
 public class Header extends ElementActions {
 
@@ -12,8 +12,6 @@ public class Header extends ElementActions {
         super(driver);
         PageFactory.initElements(driver, this);
     }
-
-    //Locators
 
     @FindBy(css = ".nav.navbar-nav a[href*='products']")
     private WebElement ProductsLink;
@@ -39,8 +37,6 @@ public class Header extends ElementActions {
     @FindBy(partialLinkText = "Contact us")
     private WebElement contactUsLink;
 
-
-    //Actions
     public ProductsPage clickProductsLink() {
         click(ProductsLink);
         return new ProductsPage(driver);

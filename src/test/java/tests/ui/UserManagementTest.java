@@ -8,10 +8,10 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobjects.api.account.UserFactory;
 import pageobjects.api.account.UserRequest;
-import pom.AccountCreatedPage;
-import pom.DeleteAccount;
-import pom.SignupLoginPage;
-import pom.SignupAccountInfoPage;
+import pageobjects.ui.pom.AccountCreatedPage;
+import pageobjects.ui.pom.DeleteAccount;
+import pageobjects.ui.pom.SignupLoginPage;
+import pageobjects.ui.pom.SignupAccountInfoPage;
 
 public class UserManagementTest extends BaseTestUI {
     @Test(testName = "TC 01 - Register User")

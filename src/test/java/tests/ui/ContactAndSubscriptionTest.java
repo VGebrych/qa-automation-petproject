@@ -6,9 +6,9 @@ import base.annotations.NeedUser;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobjects.api.account.UserRequest;
-import pom.CartPage;
-import pom.ContactUsPage;
-import pom.HomePage;
+import pageobjects.ui.pom.CartPage;
+import pageobjects.ui.pom.ContactUsPage;
+import pageobjects.ui.pom.HomePage;
 import testUtils.FileUtils;
 
 @NeedUser

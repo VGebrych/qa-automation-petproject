@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import pom.HomePage;
+import pageobjects.ui.pom.HomePage;
 import utils.Utils;
 
 import java.io.File;

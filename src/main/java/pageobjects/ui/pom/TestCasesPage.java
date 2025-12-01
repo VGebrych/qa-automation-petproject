@@ -1,9 +1,9 @@
-package pom;
+package pageobjects.ui.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pom.base.BasePage;
+import pageobjects.ui.pom.base.BasePage;
 
 public class TestCasesPage extends BasePage {
     public TestCasesPage(WebDriver driver) {

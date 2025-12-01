@@ -51,7 +51,7 @@ public class ProductsTest extends BaseTestApi {
                 "This request method is not supported.");
     }
 
-    @Test(dataProvider = "searchQueries", dataProviderClass = TestDataProvider.class,
+    @Test(dataProvider = "apiSearchQueries", dataProviderClass = TestDataProvider.class,
             testName = "API 5: POST To Search Product", groups = {"API"})
     public void postToSearchProduct(String query, boolean expectEmpty) {
         ResponseProducts searchProductResponse = given()

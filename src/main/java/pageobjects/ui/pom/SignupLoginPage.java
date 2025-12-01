@@ -1,16 +1,15 @@
-package pom;
+package pageobjects.ui.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pom.base.BasePage;
+import pageobjects.ui.pom.base.BasePage;
 
 public class SignupLoginPage extends BasePage {
     public SignupLoginPage(WebDriver driver) {
         super(driver);
     }
 
-    // ---- Locators
     @FindBy(css = ".login-form h2")
     private WebElement getLoginText;
 
@@ -41,7 +40,6 @@ public class SignupLoginPage extends BasePage {
     @FindBy(css = ".signup-form p")
     private WebElement signUpFormAlertText;
 
-    // ---- Actions
     public boolean isSignUpTextVisible(String expectedText) {
         return verifyElementText(getSignUpText, expectedText);
     }

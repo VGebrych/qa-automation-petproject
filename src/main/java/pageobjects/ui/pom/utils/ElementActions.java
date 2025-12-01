@@ -1,4 +1,4 @@
-package pom.utils;
+package pageobjects.ui.pom.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

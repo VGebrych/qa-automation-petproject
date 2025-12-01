@@ -1,18 +1,17 @@
-package pom;
+package pageobjects.ui.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pageobjects.api.account.UserRequest;
-import pom.base.BasePage;
+import pageobjects.ui.pom.base.BasePage;
 
 public class SignupAccountInfoPage extends BasePage {
     public SignupAccountInfoPage(WebDriver driver) {
         super(driver);
     }
 
-    // ---- Locators
     @FindBy(css = ".login-form >h2 > b")
     private WebElement accountInformationTitle;
 
@@ -79,7 +78,6 @@ public class SignupAccountInfoPage extends BasePage {
     @FindBy(css = "button[data-qa='create-account']")
     private WebElement createAccountButton;
 
-    // ---- Actions
     public boolean isAccountInformationTitleVisible(String expectedText) {
         return verifyElementText(accountInformationTitle, expectedText);
     }

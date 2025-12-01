@@ -1,11 +1,10 @@
-package pom;
+package pageobjects.ui.pom;
 
 import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pom.base.BasePage;
+import pageobjects.ui.pom.base.BasePage;
 
 import utils.Utils;
 
@@ -15,7 +14,6 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    // ---- Locators
     @FindBy(xpath = "//p[@class='fc-button-label' and text()='Consent']")
     private WebElement consentButton;
 
@@ -28,7 +26,6 @@ public class HomePage extends BasePage {
     @FindBy(css = ".item.active [class='col-sm-6'] h2")
     private WebElement sliderHeaderText;
 
-    // ---- Actions
     public void acceptCookies() {
         click(consentButton);
     }

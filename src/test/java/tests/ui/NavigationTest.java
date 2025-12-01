@@ -3,7 +3,7 @@ package tests.ui;
 import base.BaseTestUI;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pom.TestCasesPage;
+import pageobjects.ui.pom.TestCasesPage;
 
 public class NavigationTest extends BaseTestUI {
     @Test(testName = "TC07: Verify Test Cases Page")

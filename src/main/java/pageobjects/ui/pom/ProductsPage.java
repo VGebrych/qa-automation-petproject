@@ -1,10 +1,10 @@
-package pom;
+package pageobjects.ui.pom;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pom.base.BasePage;
+import pageobjects.ui.pom.base.BasePage;
 
 import java.util.List;
 
@@ -21,20 +21,18 @@ public class ProductsPage extends BasePage {
 
     private By productNameInCard = By.tagName("p");
 
-    @FindBy (id = "search_product")
+    @FindBy(id = "search_product")
     private WebElement searchInputField;
 
-    @FindBy (id = "submit_search")
+    @FindBy(id = "submit_search")
     private WebElement searchButton;
-
-
 
 
     public boolean isAtProductsPage() {
         return isAtPage("/products", ProductsHeader, "ALL PRODUCTS");
     }
 
-    public boolean verifyProductsHeaderText(String expectedHeaderText){
+    public boolean verifyProductsHeaderText(String expectedHeaderText) {
         return verifyElementText(ProductsHeader, expectedHeaderText);
     }
 
@@ -48,6 +46,10 @@ public class ProductsPage extends BasePage {
             return true;
         }
         return false;
+    }
+
+    public boolean isProductsListEmpty() {
+        return productCardsList.isEmpty();
     }
 
     public void clickProductViewByIndex(int index) {
@@ -78,4 +80,6 @@ public class ProductsPage extends BasePage {
         enterSearchProduct(productName);
         clickSearchButton();
     }
+
+
 }

@@ -1,23 +1,21 @@
-package pom;
+package pageobjects.ui.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pom.base.BasePage;
+import pageobjects.ui.pom.base.BasePage;
 
 public class DeleteAccount extends BasePage {
     public DeleteAccount(WebDriver driver) {
         super(driver);
     }
 
-    // ---- Locators
-    @FindBy (css = ".title.text-center b")
+    @FindBy(css = ".title.text-center b")
     private WebElement accountDeletedTitle;
 
-    @FindBy (css = ".pull-right [data-qa = 'continue-button']")
+    @FindBy(css = ".pull-right [data-qa = 'continue-button']")
     private WebElement continueButton;
 
-    // ---- Actions
     public boolean isAccountDeletedTitleVisible(String expectedTitle) {
         return verifyElementText(accountDeletedTitle, expectedTitle);
     }

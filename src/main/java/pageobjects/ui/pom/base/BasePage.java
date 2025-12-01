@@ -1,13 +1,13 @@
-package pom.base;
+package pageobjects.ui.pom.base;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pom.Footer;
-import pom.Header;
-import pom.utils.ElementActions;
+import pageobjects.ui.pom.Footer;
+import pageobjects.ui.pom.Header;
+import pageobjects.ui.pom.utils.ElementActions;
 
 import java.time.Duration;
 

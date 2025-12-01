@@ -1,10 +1,11 @@
 package tests.ui;
 
 import base.BaseTestUI;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pom.ProductDetailPage;
-import pom.ProductsPage;
+import pageobjects.ui.pom.ProductDetailPage;
+import pageobjects.ui.pom.ProductsPage;
 import testUtils.TestDataProvider;
 
 public class ProductsTest extends BaseTestUI {
@@ -22,17 +23,17 @@ public class ProductsTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "TC09: Search Product", dataProvider = "searchQueries", dataProviderClass = TestDataProvider.class)
-    public void searchProduct(String query, boolean expectEmpty) {
+    @Test(testName = "TC09: Search Product", dataProvider = "uiSearchQueries",
+            dataProviderClass = TestDataProvider.class)
+    public void searchProduct(String query) {
         SoftAssert softAssert = new SoftAssert();
         homePage.isAtHomePage();
         ProductsPage productsPage = homePage.header.clickProductsLink();
         softAssert.assertTrue(productsPage.isAtProductsPage(), "Not at ALL Products page");
         productsPage.searchProduct(query);
-        softAssert.assertTrue(productsPage.verifyProductsHeaderText("Searched Products"),
+        softAssert.assertTrue(productsPage.verifyProductsHeaderText("SEARCHED PRODUCTS"),
                 "Searched Products header is not displayed, or text is incorrect");
-        softAssert.assertTrue(productsPage.areProductsListVisible(), "Searched products are not visible");
-
+        Assert.assertFalse(productsPage.isProductsListEmpty(), "Products list is empty for search query: " + query);
 
     }
 }
