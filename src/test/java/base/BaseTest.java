@@ -7,7 +7,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import pageobjects.api.account.UserApiManager;
+import pageobjects.api.client.UserApiClient;
 import pageobjects.api.account.UserFactory;
 import pageobjects.api.account.UserRequest;
 
@@ -17,26 +17,27 @@ public class BaseTest {
 
     public UserRequest methodLevelUser;
     public UserRequest classLevelUser;
+    protected final UserApiClient userClient = new UserApiClient();
 
     @BeforeMethod
     public void setupMethodUser(Method method) {
         if (method.isAnnotationPresent(NeedUser.class)) {
             methodLevelUser = UserFactory.createDefaultUser();
-            UserApiManager.createUser(methodLevelUser);
+            userClient.createUser(methodLevelUser);
         }
     }
 
     @AfterMethod
     public void cleanUpMethodUser(Method method) {
         if (methodLevelUser != null) {
-            UserApiManager.deleteUser(methodLevelUser.getEmail(), methodLevelUser.getPassword());
+            userClient.deleteUser(methodLevelUser.getEmail(), methodLevelUser.getPassword());
             methodLevelUser = null;
         }
 
         if (method.isAnnotationPresent(NeedCleanUp.class)) {
             UserRequest activeUser = getPreconditionUser();
             if (activeUser != null) {
-                UserApiManager.deleteUser(activeUser.getEmail(), activeUser.getPassword());
+                userClient.deleteUser(activeUser.getEmail(), activeUser.getPassword());
             }
         }
     }
@@ -46,14 +47,14 @@ public class BaseTest {
         RestAssured.requestSpecification = new ApiSpecBuilder().baseReq;
         if (this.getClass().isAnnotationPresent(NeedUser.class) && classLevelUser == null) {
             classLevelUser = UserFactory.createDefaultUser();
-            UserApiManager.createUser(classLevelUser);
+            userClient.createUser(classLevelUser);
         }
     }
 
     @AfterClass
     public void cleanUpClassUser() {
         if (classLevelUser != null) {
-            UserApiManager.deleteUser(classLevelUser.getEmail(), classLevelUser.getPassword());
+            userClient.deleteUser(classLevelUser.getEmail(), classLevelUser.getPassword());
             classLevelUser = null;
         }
     }

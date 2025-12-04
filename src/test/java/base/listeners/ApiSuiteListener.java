@@ -1,7 +1,7 @@
 package base.listeners;
 
 import base.annotations.NeedUser;
-import pageobjects.api.account.UserApiManager;
+import pageobjects.api.client.UserApiClient;
 import pageobjects.api.account.UserFactory;
 import pageobjects.api.account.UserRequest;
 import org.testng.*;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ApiSuiteListener implements ISuiteListener, IInvokedMethodListener {
+    private static final UserApiClient userClient = new UserApiClient();
 
     // Map to hold class-level users
     private final Map<Class<?>, UserRequest> classLevelUsers = new HashMap<>();
@@ -26,7 +27,7 @@ public class ApiSuiteListener implements ISuiteListener, IInvokedMethodListener 
         }
     }
 
-    private void deleteDir(File dir) {
+    private static void deleteDir(File dir) {
         File[] files = dir.listFiles();
         if (files != null) {
             for (File f : files) {
@@ -49,7 +50,7 @@ public class ApiSuiteListener implements ISuiteListener, IInvokedMethodListener 
         // Cleanup class-level users after suite finishes
         classLevelUsers.forEach((clazz, user) -> {
             if (user != null) {
-                UserApiManager.deleteUser(user.getEmail(), user.getPassword());
+                userClient.deleteUser(user.getEmail(), user.getPassword());
             }
         });
         classLevelUsers.clear();
@@ -64,7 +65,7 @@ public class ApiSuiteListener implements ISuiteListener, IInvokedMethodListener 
         // Handle method-level user
         if (m.isAnnotationPresent(NeedUser.class)) {
             UserRequest user = UserFactory.createDefaultUser();
-            UserApiManager.createUser(user);
+            userClient.createUser(user);
             if (instance instanceof base.BaseTest) {
                 ((base.BaseTest) instance).methodLevelUser = user;
             }
@@ -74,7 +75,7 @@ public class ApiSuiteListener implements ISuiteListener, IInvokedMethodListener 
         Class<?> clazz = m.getDeclaringClass();
         if (clazz.isAnnotationPresent(NeedUser.class) && !classLevelUsers.containsKey(clazz)) {
             UserRequest user = UserFactory.createDefaultUser();
-            UserApiManager.createUser(user);
+            userClient.createUser(user);
             classLevelUsers.put(clazz, user);
             if (instance instanceof base.BaseTest) {
                 ((base.BaseTest) instance).classLevelUser = user;
@@ -92,7 +93,7 @@ public class ApiSuiteListener implements ISuiteListener, IInvokedMethodListener 
             if (instance instanceof base.BaseTest) {
                 UserRequest user = ((base.BaseTest) instance).methodLevelUser;
                 if (user != null) {
-                    UserApiManager.deleteUser(user.getEmail(), user.getPassword());
+                    userClient.deleteUser(user.getEmail(), user.getPassword());
                     ((base.BaseTest) instance).methodLevelUser = null;
                 }
             }

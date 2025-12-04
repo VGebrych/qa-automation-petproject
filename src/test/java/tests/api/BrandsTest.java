@@ -1,5 +1,6 @@
 package tests.api;
 
+import assertions.api.BrandsAssertions;
 import base.BaseTestApi;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -7,6 +8,7 @@ import org.testng.asserts.SoftAssert;
 import pageobjects.api.brands.Brand;
 import pageobjects.api.brands.ResponseBrands;
 import testUtils.ApiTestUtils;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -28,16 +30,16 @@ public class BrandsTest extends BaseTestApi {
                 .as(ResponseBrands.class);
     }
 
-    @Test (testName = "API 3: Get All Brands List", groups = {"API"})
+    @Test(testName = "API 3: Get All Brands List", groups = {"API"})
     public void getAllBrandsList() {
         ResponseBrands responseBrands = getBrandsResponse();
 
-        Assert.assertEquals(responseBrands.getResponseCode(), 200);
+        Assert.assertEquals(responseBrands.getResponseCode(), 200, "Response code should be 200");
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(responseBrands.getBrands().isEmpty(), "Brands list should not be empty");
 
-        ApiTestUtils.verifyDuplicateIds(responseBrands.getBrands(),
+        BrandsAssertions.verifyDuplicateIds(responseBrands.getBrands(),
                 Brand::getId, Brand::getBrand, softAssert);
 
         softAssert.assertAll();
@@ -93,10 +95,10 @@ public class BrandsTest extends BaseTestApi {
         softAssert.assertAll();
     }
 
-    @Test (testName = "API 4: PUT To All Brands List", groups = {"API"})
+    @Test(testName = "API 4: PUT To All Brands List", groups = {"API"})
     public void putToAllBrandsList() {
 
-        ApiTestUtils.verifyMethodNotSupported(brandsApiPath, "PUT", "405",
+        BrandsAssertions.verifyMethodNotSupported(brandsApiPath, "PUT", "405",
                 "This request method is not supported.");
 
     }

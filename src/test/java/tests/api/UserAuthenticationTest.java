@@ -1,5 +1,6 @@
 package tests.api;
 
+import assertions.api.UserAssertions;
 import base.BaseTestApi;
 import base.annotations.NeedCleanUp;
 import base.annotations.NeedUser;
@@ -49,7 +50,7 @@ public class UserAuthenticationTest extends BaseTestApi {
 
     @Test(testName = "API 9: DELETE To Verify Login", groups = {"API"})
     public void deleteToVerifyLogin() {
-        ApiTestUtils.verifyMethodNotSupported(verifyUserApiPath, "DELETE", "405",
+        UserAssertions.verifyMethodNotSupported(verifyUserApiPath, "DELETE", "405",
                 "This request method is not supported.");
     }
 
