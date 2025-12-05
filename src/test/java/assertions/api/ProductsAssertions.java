@@ -7,7 +7,7 @@ import pageobjects.api.products.ResponseProducts;
 
 import java.util.Arrays;
 
-public class ProductsAssertions extends BaseApiAssertion{
+public class ProductsAssertions extends BaseApiAssertion {
 
     public static void assertAllProducts(ResponseProducts responseProducts) {
         SoftAssert softAssert = new SoftAssert();

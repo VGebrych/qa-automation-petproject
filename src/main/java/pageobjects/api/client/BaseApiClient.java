@@ -20,7 +20,9 @@ public class BaseApiClient {
         this.responseSpec = specBuilder.baseResp;
     }
 
-    // GET request
+    // =============================
+    // GET
+    // =============================
     protected Response get(String path) {
         return given()
                 .spec(requestSpec)
@@ -32,7 +34,6 @@ public class BaseApiClient {
                 .response();
     }
 
-    // GET with query parameters
     protected Response get(String path, Map<String, ?> queryParams) {
         return given()
                 .spec(requestSpec)
@@ -45,8 +46,10 @@ public class BaseApiClient {
                 .response();
     }
 
-    // POST with form parameters
-    protected Response postForm(String path, Map<String, String> formParams) {
+    // =============================
+    // POST (form-url-encoded)
+    // =============================
+    protected Response postForm(String path, Map<String, ?> formParams) {
         return given()
                 .spec(requestSpec)
                 .contentType("application/x-www-form-urlencoded")
@@ -59,7 +62,9 @@ public class BaseApiClient {
                 .response();
     }
 
-    // POST with JSON body
+    // =============================
+    // POST (JSON)
+    // =============================
     protected Response postJson(String path, Object jsonBody) {
         return given()
                 .spec(requestSpec)
@@ -73,7 +78,9 @@ public class BaseApiClient {
                 .response();
     }
 
-    // PUT with JSON body
+    // =============================
+    // PUT (JSON)
+    // =============================
     protected Response put(String path, Object jsonBody) {
         return given()
                 .spec(requestSpec)
@@ -87,8 +94,10 @@ public class BaseApiClient {
                 .response();
     }
 
-    // PUT with form parameters
-    protected Response putForm(String path, Map<String, String> formParams) {
+    // =============================
+    // PUT (form-url-encoded)
+    // =============================
+    protected Response putForm(String path, Map<String, ?> formParams) {
         return given()
                 .spec(requestSpec)
                 .contentType("application/x-www-form-urlencoded")
@@ -101,12 +110,14 @@ public class BaseApiClient {
                 .response();
     }
 
-
-    // DELETE with optional form parameters
-    protected Response delete(String path, Map<String, String> formParams) {
+    // =============================
+    // DELETE (optional form params)
+    // =============================
+    protected Response delete(String path, Map<String, ?> formParams) {
         if (formParams != null && !formParams.isEmpty()) {
             return given()
                     .spec(requestSpec)
+                    .contentType("application/x-www-form-urlencoded")
                     .formParams(formParams)
                     .when()
                     .delete(path)
@@ -114,15 +125,15 @@ public class BaseApiClient {
                     .spec(responseSpec)
                     .extract()
                     .response();
-        } else {
-            return given()
-                    .spec(requestSpec)
-                    .when()
-                    .delete(path)
-                    .then()
-                    .spec(responseSpec)
-                    .extract()
-                    .response();
         }
+
+        return given()
+                .spec(requestSpec)
+                .when()
+                .delete(path)
+                .then()
+                .spec(responseSpec)
+                .extract()
+                .response();
     }
 }
