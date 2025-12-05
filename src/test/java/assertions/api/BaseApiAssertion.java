@@ -3,6 +3,7 @@ package assertions.api;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import testUtils.ApiTestUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -59,5 +60,11 @@ public class BaseApiAssertion {
         softAssert.assertEquals(getValueFromJson(response, "responseCode"), expectedCode);
         softAssert.assertEquals(getValueFromJson(response, "message"), expectedMessage);
         softAssert.assertAll();
+    }
+
+    public static void assertResponseText(Response response, String expectedText, SoftAssert softAssert) {
+        String actualText = ApiTestUtils.getValueFromJson(response, "message");
+        softAssert.assertEquals(actualText, expectedText,
+                "Response text should be: " + expectedText);
     }
 }

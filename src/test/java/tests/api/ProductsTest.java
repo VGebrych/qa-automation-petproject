@@ -46,9 +46,9 @@ public class ProductsTest extends BaseTestApi {
     public void POSTToSearchProductWithoutParameter() {
         Response productListResponse = productsClient.searchProductWithoutParam();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(ApiTestUtils.getValueFromJson(productListResponse, "responseCode"), "400");
-        softAssert.assertEquals(ApiTestUtils.getValueFromJson(productListResponse, "message"),
-                "Bad request, search_product parameter is missing in POST request.");
+        ProductsAssertions.assertResponseCode(productListResponse, "400", softAssert);
+        ProductsAssertions.assertResponseText(productListResponse,
+                "Bad request, search_product parameter is missing in POST request.", softAssert);
         softAssert.assertAll();
     }
 }
