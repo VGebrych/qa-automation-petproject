@@ -28,21 +28,12 @@ public class BaseApiAssertion {
     }
 
     public static void verifyMethodNotSupported(String apiPath, String method, String expectedCode, String expectedMessage) {
-        Response response;
-
-        switch (method.toUpperCase()) {
-            case "POST":
-                response = given().when().post(apiPath).then().extract().response();
-                break;
-            case "PUT":
-                response = given().when().put(apiPath).then().extract().response();
-                break;
-            case "DELETE":
-                response = given().when().delete(apiPath).then().extract().response();
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported HTTP method: " + method);
-        }
+        Response response = switch (method.toUpperCase()) {
+            case "POST" -> given().when().post(apiPath).then().extract().response();
+            case "PUT" -> given().when().put(apiPath).then().extract().response();
+            case "DELETE" -> given().when().delete(apiPath).then().extract().response();
+            default -> throw new IllegalArgumentException("Unsupported HTTP method: " + method);
+        };
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(getValueFromJson(response, "responseCode"), expectedCode);

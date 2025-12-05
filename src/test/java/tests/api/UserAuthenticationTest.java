@@ -5,15 +5,9 @@ import base.BaseTestApi;
 import base.annotations.NeedCleanUp;
 import base.annotations.NeedUser;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import pageobjects.api.client.UserApiClient;
-import testUtils.ApiTestUtils;
-
-import static io.restassured.RestAssured.given;
 
 @NeedUser
 @NeedCleanUp

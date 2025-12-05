@@ -5,12 +5,9 @@ import base.BaseTestApi;
 import base.annotations.NeedCleanUp;
 import base.annotations.NeedUser;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobjects.api.account.*;
-
-import testUtils.ApiTestUtils;
 
 public class UserAccountManagementTest extends BaseTestApi {
 
