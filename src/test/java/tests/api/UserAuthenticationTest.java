@@ -9,6 +9,8 @@ import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import pageobjects.api.client.UserApiClient;
 import testUtils.ApiTestUtils;
 
 import static io.restassured.RestAssured.given;
@@ -31,26 +33,16 @@ public class UserAuthenticationTest extends BaseTestApi {
         };
     }
 
-    private final String verifyUserApiPath = "verifyLogin";
-
     @Test(testName = "API 7: POST To Verify Login with valid details", groups = {"API"})
     public void verifyUserLogin() {
 
-        Response verifyUserResponse = given()
-                .contentType("application/x-www-form-urlencoded")
-                .formParam("email", getPreconditionUser().getEmail())
-                .formParam("password", getPreconditionUser().getPassword())
-                .when().post(verifyUserApiPath)
-                .then().extract().response();
-
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(verifyUserResponse, "responseCode"), "200"
-                , "Response code should be 200");
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(verifyUserResponse, "message"), "User exists!");
+        Response verifyUserResponse = userClient.verifyLogin(getPreconditionUser().getEmail(), getPreconditionUser().getPassword());
+        UserAssertions.assertResponseCodeAndMessage(verifyUserResponse, "200", "User exists!");
     }
 
     @Test(testName = "API 9: DELETE To Verify Login", groups = {"API"})
     public void deleteToVerifyLogin() {
-        UserAssertions.verifyMethodNotSupported(verifyUserApiPath, "DELETE", "405",
+        UserAssertions.verifyMethodNotSupported(UserApiClient.getVerifyUserApiPath(), "DELETE", "405",
                 "This request method is not supported.");
     }
 
@@ -58,14 +50,7 @@ public class UserAuthenticationTest extends BaseTestApi {
             testName = "API 8: POST To Verify Login without email parameter AND API 10: POST To Verify Login with invalid details",
             groups = {"API"})
     public void verifyLoginWithInvalidDetails(String email, String password, String code, String message) {
-        RequestSpecification request = given().contentType("application/x-www-form-urlencoded");
-
-        if (email != null && !email.isEmpty()) request.formParam("email", email);
-        if (password != null && !password.isEmpty()) request.formParam("password", password);
-
-        Response verifyUserResponse = request.post(verifyUserApiPath).then().extract().response();
-
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(verifyUserResponse, "responseCode"), code);
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(verifyUserResponse, "message"), message);
+        Response verifyUserResponse = userClient.verifyLogin(email, password);
+        UserAssertions.assertResponseCodeAndMessage(verifyUserResponse, code, message);
     }
 }

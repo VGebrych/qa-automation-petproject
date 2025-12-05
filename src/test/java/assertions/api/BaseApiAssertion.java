@@ -3,7 +3,6 @@ package assertions.api;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
-import testUtils.ApiTestUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,17 +12,6 @@ import static io.restassured.RestAssured.given;
 import static testUtils.ApiTestUtils.getValueFromJson;
 
 public class BaseApiAssertion {
-
-    public static void assertResponseCode(int actualCode, int expectedCode) {
-        Assert.assertEquals(actualCode, expectedCode,
-                "Response code should be " + expectedCode);
-    }
-
-    public static void assertResponseCode(Response response, String expectedCode, SoftAssert softAssert) {
-        String actualCode = getValueFromJson(response, "responseCode");
-        softAssert.assertEquals(actualCode, expectedCode,
-                "Response code should be " + expectedCode);
-    }
 
     public static <T> void verifyDuplicateIds(
             Iterable<T> items,
@@ -62,9 +50,33 @@ public class BaseApiAssertion {
         softAssert.assertAll();
     }
 
-    public static void assertResponseText(Response response, String expectedText, SoftAssert softAssert) {
-        String actualText = ApiTestUtils.getValueFromJson(response, "message");
-        softAssert.assertEquals(actualText, expectedText,
-                "Response text should be: " + expectedText);
+    public static void assertResponseMessage(Response response, String expectedMessage, SoftAssert softAssert) {
+        assertResponseField(response, "message", expectedMessage, softAssert);
     }
+
+    public static void assertResponseField(Response response, String key, String expectedValue, SoftAssert softAssert) {
+        String actualValue = response.jsonPath().getString(key);
+        softAssert.assertEquals(actualValue, expectedValue,
+                "Response field '" + key + "' should be: " + expectedValue);
+    }
+
+    public static void assertResponseCode(int actualCode, int expectedCode) {
+        Assert.assertEquals(actualCode, expectedCode,
+                "Response code should be " + expectedCode);
+    }
+
+    public static void assertResponseCode(Response response, String expectedCode, SoftAssert softAssert) {
+        String actualCode = getValueFromJson(response, "responseCode");
+        softAssert.assertEquals(actualCode, expectedCode,
+                "Response code should be " + expectedCode);
+    }
+
+    public static void assertResponseCodeAndMessage(Response response, String expectedCode, String expectedMessage) {
+        String actualCode = getValueFromJson(response, "responseCode");
+        String actualMessage = getValueFromJson(response, "message");
+
+        Assert.assertEquals(actualCode, expectedCode, "Response code should be " + expectedCode);
+        Assert.assertEquals(actualMessage, expectedMessage, "Response message should be: " + expectedMessage);
+    }
+
 }

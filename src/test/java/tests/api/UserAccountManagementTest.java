@@ -19,18 +19,14 @@ public class UserAccountManagementTest extends BaseTestApi {
     public void createUserAccount() {
         methodLevelUser = UserFactory.createDefaultUser();
         Response response = userClient.createUser(methodLevelUser);
-
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "201");
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "User created!");
+        UserAssertions.assertResponseCodeAndMessage(response, "201", "User created!");
     }
 
     @Test(testName = "API 12: DELETE METHOD To Delete User Account", groups = {"API"})
     @NeedUser
     public void deleteUserAccount() {
         Response response = userClient.deleteUser(getPreconditionUser().getEmail(), getPreconditionUser().getPassword());
-
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "200");
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "Account deleted!");
+        UserAssertions.assertResponseCodeAndMessage(response, "200", "Account deleted!");
     }
 
     @Test(testName = "API 14: GET user account detail by email", groups = {"API"})
@@ -42,11 +38,10 @@ public class UserAccountManagementTest extends BaseTestApi {
         User getUser = userDetailsResponse.getUser();
         UserRequest preconditionUser = getPreconditionUser();
 
+        UserAssertions.assertResponseCode(userDetailsResponse.getResponseCode(), 200);
+
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(userDetailsResponse.getResponseCode(), 200);
-
         UserAssertions.compareUserAccounts(preconditionUser, getUser, softAssert);
-
         softAssert.assertAll();
     }
 
@@ -57,16 +52,13 @@ public class UserAccountManagementTest extends BaseTestApi {
         UserRequest updatedUser = UserFactory.createUpdatedUser(getPreconditionUser());
         Response response = userClient.updateUser(updatedUser);
 
-        Assert.assertEquals(ApiTestUtils.getValueFromJson(response, "responseCode"), "200");
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(ApiTestUtils.getValueFromJson(response, "message"), "User updated!");
+        UserAssertions.assertResponseCodeAndMessage(response, "200", "User updated!");
 
         UserGetRequest userDetailsResponse = userClient.getUserDetailByEmail(getPreconditionUser().getEmail());
         User currentUser = userDetailsResponse.getUser();
 
+        SoftAssert softAssert = new SoftAssert();
         UserAssertions.compareUserAccounts(updatedUser, currentUser, softAssert);
-
         softAssert.assertAll();
     }
 }

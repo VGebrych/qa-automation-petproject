@@ -13,7 +13,11 @@ public class UserApiClient extends BaseApiClient {
     private static final String getUserDetailByEmail = "getUserDetailByEmail";
     private static final String updateAccount = "updateAccount";
     private static final String deleteAccount = "deleteAccount";
+    private static final String verifyUserApiPath = "verifyLogin";
 
+    public static String getVerifyUserApiPath() {
+        return verifyUserApiPath;
+    }
 
     public Response createUser(UserRequest user) {
         Map<String, String> params = UserFactory.toMap(user);
@@ -37,5 +41,12 @@ public class UserApiClient extends BaseApiClient {
         params.put("email", email);
         params.put("password", password);
         return delete(deleteAccount, params);
+    }
+
+    public Response verifyLogin(String email, String password) {
+        Map<String, String> params = new HashMap<>();
+        if (email != null && !email.isEmpty()) params.put("email", email);
+        if (password != null && !password.isEmpty()) params.put("password", password);
+        return postForm(verifyUserApiPath, params);
     }
 }

@@ -7,8 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductsApiClient extends BaseApiClient {
-    public static final String productsApiPath = "productsList";
-    public static final String searchProductApiPath = "searchProduct";
+    private static final String productsApiPath = "productsList";
+    private static final String searchProductApiPath = "searchProduct";
+
+    public static String getProductsApiPath() {
+        return productsApiPath;
+    }
 
     public ResponseProducts getAllProductList() {
         return get(productsApiPath).as(ResponseProducts.class);

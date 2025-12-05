@@ -7,7 +7,6 @@ import org.testng.asserts.SoftAssert;
 import pageobjects.api.client.ProductsApiClient;
 import pageobjects.api.products.Product;
 import pageobjects.api.products.ResponseProducts;
-import testUtils.ApiTestUtils;
 import assertions.api.ProductsAssertions;
 import testUtils.TestDataProvider;
 
@@ -26,7 +25,7 @@ public class ProductsTest extends BaseTestApi {
 
     @Test(testName = "API 2: POST To All Products List", groups = {"API"})
     public void postToAllProductList() {
-        ProductsAssertions.verifyMethodNotSupported(ProductsApiClient.productsApiPath, "POST", "405",
+        ProductsAssertions.verifyMethodNotSupported(ProductsApiClient.getProductsApiPath(), "POST", "405",
                 "This request method is not supported.");
     }
 
@@ -47,7 +46,7 @@ public class ProductsTest extends BaseTestApi {
         Response productListResponse = productsClient.searchProductWithoutParam();
         SoftAssert softAssert = new SoftAssert();
         ProductsAssertions.assertResponseCode(productListResponse, "400", softAssert);
-        ProductsAssertions.assertResponseText(productListResponse,
+        ProductsAssertions.assertResponseMessage(productListResponse,
                 "Bad request, search_product parameter is missing in POST request.", softAssert);
         softAssert.assertAll();
     }
