@@ -19,7 +19,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
     public void testContactUsFormSubmission() {
         UserRequest user = getPreconditionUser();
         SoftAssert softAssert = new SoftAssert();
-        homePage.isAtHomePage();
+        homePage.assertHomePageIsVisible();
         ContactUsPage contactUsPage = homePage.header.clickContactUsLink();
         softAssert.assertTrue(contactUsPage.isGetInTouchHeaderVisible("GET IN TOUCH"),
                 "'GET IN TOUCH' header is not visible");
@@ -31,7 +31,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
         softAssert.assertTrue(contactUsPage.verifySuccessMessage("Success! Your details have been submitted successfully."),
                 "Success message is not displayed as expected.");
         HomePage homePage = contactUsPage.clickHomeButton();
-        homePage.isAtHomePage();
+        homePage.assertHomePageIsVisible();
         softAssert.assertAll();
     }
 
@@ -39,7 +39,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
     public void testSubscriptionInHomePage() {
         UserRequest user = getPreconditionUser();
         SoftAssert softAssert = new SoftAssert();
-        homePage.isAtHomePage();
+        homePage.assertHomePageIsVisible();
         homePage.scrollToBottom();
         softAssert.assertTrue(homePage.footer.verifySubscriptionHeader("SUBSCRIPTION"),
                 "'SUBSCRIPTION' header is not visible in footer");
@@ -54,7 +54,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
     public void testSubscriptionInCartPage() {
         UserRequest user = getPreconditionUser();
         SoftAssert softAssert = new SoftAssert();
-        homePage.isAtHomePage();
+        homePage.assertHomePageIsVisible();
         CartPage cartpage = homePage.header.clickCartLink();
         cartpage.scrollToBottom();
         softAssert.assertTrue(cartpage.footer.verifySubscriptionHeader("SUBSCRIPTION"),

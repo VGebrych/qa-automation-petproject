@@ -34,7 +34,7 @@ public class HomePage extends BasePage {
         driver.get(ConfigReader.getGlobalValue("baseURI"));
     }
 
-    public void isAtHomePage() {
+    public void assertHomePageIsVisible() {
         boolean result = isAtPage(
                 "https://automationexercise.com/",
                 sliderHeaderText,

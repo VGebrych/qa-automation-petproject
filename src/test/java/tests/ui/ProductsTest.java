@@ -13,16 +13,16 @@ import testUtils.TestDataProvider;
 import java.util.List;
 
 public class ProductsTest extends BaseTestUI {
-    //18,19, 21,22 - Products tests will be implemented here
+    //19, 21,22 - Products tests will be implemented here
     @Test(testName = "TC08: Verify All Products and product detail page")
     public void verifyAllProductsAndProductDetailPage() {
         SoftAssert softAssert = new SoftAssert();
-        homePage.isAtHomePage();
+        homePage.assertHomePageIsVisible();
         ProductsPage productsPage = homePage.header.clickProductsLink();
         softAssert.assertTrue(productsPage.isAtProductsPage(), "Not at All Products page");
         softAssert.assertTrue(productsPage.areProductsListVisible(), "Products are not visible");
         ProductDetailPage productDetailsPage = productsPage.clickOnFirstProductViewButton();
-        softAssert.assertTrue(productDetailsPage.isAtProductDetailPage());
+        softAssert.assertTrue(productDetailsPage.isAtProductDetailPage(), "Not at product details page");
         productDetailsPage.verifyProductDetailsVisible(softAssert);
         softAssert.assertAll();
     }
@@ -31,11 +31,11 @@ public class ProductsTest extends BaseTestUI {
             dataProviderClass = TestDataProvider.class)
     public void searchProduct(String query, boolean expectEmpty) {
         SoftAssert softAssert = new SoftAssert();
-        homePage.isAtHomePage();
+        homePage.assertHomePageIsVisible();
         ProductsPage productsPage = homePage.header.clickProductsLink();
         softAssert.assertTrue(productsPage.isAtProductsPage(), "Not at ALL Products page");
         productsPage.searchProduct(query);
-        softAssert.assertTrue(productsPage.verifyProductsHeaderText("SEARCHED PRODUCTS"),
+        softAssert.assertTrue(productsPage.isProductsHeaderEqualTo("SEARCHED PRODUCTS"),
                 "Searched Products header is not displayed, or text is incorrect");
 
         ProductsUiAssertions.assertProductsListEmptyState(expectEmpty, productsPage.isProductsListEmpty(), query);
@@ -50,5 +50,12 @@ public class ProductsTest extends BaseTestUI {
 
         ProductsUiAssertions.assertUiMatchesApiProducts(uiProductNames, apiResponse.getProducts());
         softAssert.assertAll();
+    }
+
+    @Test(testName = "TC18: View Category Products")
+    public void viewCategoryProducts(){
+        SoftAssert softAssert = new SoftAssert();
+        homePage.assertHomePageIsVisible();
+
     }
 }

@@ -33,7 +33,7 @@ public class ProductsPage extends BasePage {
         return isAtPage("/products", ProductsHeader, "ALL PRODUCTS");
     }
 
-    public boolean verifyProductsHeaderText(String expectedHeaderText) {
+    public boolean isProductsHeaderEqualTo(String expectedHeaderText) {
         return verifyElementText(ProductsHeader, expectedHeaderText);
     }
 
