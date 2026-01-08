@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import pageobjects.ui.pom.base.BasePage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductsPage extends BasePage {
     public ProductsPage(WebDriver driver) {
@@ -81,5 +82,9 @@ public class ProductsPage extends BasePage {
         clickSearchButton();
     }
 
-
+    public List<String> getProductNames() {
+        return productCardsList.stream()
+                .map(card -> card.findElement(productNameInCard).getText())
+                .collect(Collectors.toList());
+    }
 }

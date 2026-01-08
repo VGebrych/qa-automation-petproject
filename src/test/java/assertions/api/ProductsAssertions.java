@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import pageobjects.api.products.Product;
 import pageobjects.api.products.ResponseProducts;
+import utils.Utils;
 
 import java.util.Arrays;
 
@@ -45,9 +46,9 @@ public class ProductsAssertions extends BaseApiAssertion {
 
             // 4. Flexible relevance check if query is provided
             if (query != null && !query.isEmpty()) {
-                String normalizedQuery = query.toLowerCase().replaceAll("[\\s&-]", "");
-                String normalizedName = p.getName().toLowerCase().replaceAll("[\\s&-]", "");
-                String normalizedCategory = p.getCategory().getCategory().toLowerCase().replaceAll("[\\s&-]", "");
+                String normalizedQuery = Utils.normalizeString(query);
+                String normalizedName = Utils.normalizeString(p.getName());
+                String normalizedCategory = Utils.normalizeString(p.getCategory().getCategory());
 
                 softAssert.assertTrue(
                         normalizedName.contains(normalizedQuery) || normalizedCategory.contains(normalizedQuery),

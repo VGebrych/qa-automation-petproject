@@ -1,64 +1,72 @@
 package pageobjects.api.account;
 
+import com.github.javafaker.Faker;
+
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class UserFactory {
 
+    private static final Faker faker = new Faker(Locale.FRANCE);
+
     private static String generateUniqueEmail() {
-        long timestamp = System.currentTimeMillis();
-        return "user" + timestamp + "@test.test";
+        return "user_" + UUID.randomUUID() + "@test.test";
     }
 
     private static String generateUniqueMobileNumber() {
-        long timestamp = System.currentTimeMillis() % 10000000;
-        return "336" + timestamp;
+        return "06" + faker.number().digits(8);
     }
 
     private static String generateRandomTitle() {
-        return Math.random() < 0.5 ? "Mr" : "Mrs";
+        return faker.options().option("Mr", "Mrs");
     }
 
     public static UserRequest createDefaultUser() {
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
         UserRequest user = new UserRequest();
-        user.setName("Test User");
+        user.setName(firstName + " " + lastName);
         user.setEmail(generateUniqueEmail());
         user.setPassword("Password123");
         user.setTitle(generateRandomTitle());
         user.setBirth_date("15");
         user.setBirth_month("5");
         user.setBirth_year("1990");
-        user.setFirstname("Test");
-        user.setLastname("User");
-        user.setCompany("Test Company");
-        user.setAddress1("123 Test St");
-        user.setAddress2("Apt 4B");
+        user.setFirstname(firstName);
+        user.setLastname(lastName);
+        user.setCompany(faker.company().name());
+        user.setAddress1(faker.address().streetAddress());
+        user.setAddress2(faker.address().secondaryAddress());
         user.setCountry("United States");
         user.setZipcode("12345");
         user.setState("Test State");
-        user.setCity("Test City");
+        user.setCity(faker.address().cityName());
         user.setMobile_number(generateUniqueMobileNumber());
         return user;
     }
 
     public static UserRequest createUpdatedUser(UserRequest existingUser) {
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
         UserRequest user = new UserRequest();
-        user.setName("Updated Test User");
+        user.setName("Updated " + firstName + " " + lastName);
         user.setEmail(existingUser.getEmail());
         user.setPassword(existingUser.getPassword());
         user.setTitle(generateRandomTitle());
         user.setBirth_date("20");
         user.setBirth_month("10");
         user.setBirth_year("1985");
-        user.setFirstname("UpdatedTest");
-        user.setLastname("UpdatedUser");
-        user.setCompany("Updated Test Company");
-        user.setAddress1("456 Updated St");
-        user.setAddress2("Apt 8C");
+        user.setFirstname(firstName);
+        user.setLastname(lastName);
+        user.setCompany("Updated " + faker.company().name());
+        user.setAddress1("Updated " + faker.address().streetAddress());
+        user.setAddress2("Updated " + faker.address().secondaryAddress());
         user.setCountry("United States");
         user.setZipcode("54321");
         user.setState("Updated State");
-        user.setCity("Updated City");
+        user.setCity("Updated " + faker.address().cityName());
         user.setMobile_number(generateUniqueMobileNumber());
         return user;
     }

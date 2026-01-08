@@ -1,12 +1,16 @@
 package tests.ui;
 
+import assertions.ui.ProductsUiAssertions;
 import base.BaseTestUI;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pageobjects.api.client.ProductsApiClient;
+import pageobjects.api.products.ResponseProducts;
 import pageobjects.ui.pom.ProductDetailPage;
 import pageobjects.ui.pom.ProductsPage;
 import testUtils.TestDataProvider;
+
+import java.util.List;
 
 public class ProductsTest extends BaseTestUI {
     //18,19, 21,22 - Products tests will be implemented here
@@ -25,7 +29,7 @@ public class ProductsTest extends BaseTestUI {
 
     @Test(testName = "TC09: Search Product", dataProvider = "uiSearchQueries",
             dataProviderClass = TestDataProvider.class)
-    public void searchProduct(String query) {
+    public void searchProduct(String query, boolean expectEmpty) {
         SoftAssert softAssert = new SoftAssert();
         homePage.isAtHomePage();
         ProductsPage productsPage = homePage.header.clickProductsLink();
@@ -33,7 +37,18 @@ public class ProductsTest extends BaseTestUI {
         productsPage.searchProduct(query);
         softAssert.assertTrue(productsPage.verifyProductsHeaderText("SEARCHED PRODUCTS"),
                 "Searched Products header is not displayed, or text is incorrect");
-        Assert.assertFalse(productsPage.isProductsListEmpty(), "Products list is empty for search query: " + query);
 
+        ProductsUiAssertions.assertProductsListEmptyState(expectEmpty, productsPage.isProductsListEmpty(), query);
+        if (expectEmpty) {
+            softAssert.assertAll();
+            return;
+        }
+        List<String> uiProductNames = productsPage.getProductNames();
+
+        ProductsApiClient apiClient = new ProductsApiClient();
+        ResponseProducts apiResponse = apiClient.searchProduct(query);
+
+        ProductsUiAssertions.assertUiMatchesApiProducts(uiProductNames, apiResponse.getProducts());
+        softAssert.assertAll();
     }
 }

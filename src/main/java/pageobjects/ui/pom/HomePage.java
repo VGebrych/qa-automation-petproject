@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pageobjects.ui.pom.base.BasePage;
 
-import utils.Utils;
+import utils.ConfigReader;
 
 public class HomePage extends BasePage {
 
@@ -31,7 +31,7 @@ public class HomePage extends BasePage {
     }
 
     public void goToHomePage() {
-        driver.get(Utils.getGlobalValue("baseURI"));
+        driver.get(ConfigReader.getGlobalValue("baseURI"));
     }
 
     public void isAtHomePage() {

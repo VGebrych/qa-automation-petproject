@@ -4,12 +4,12 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import utils.Utils;
+import utils.ConfigReader;
 
 public class ApiSpecBuilder {
 
     public RequestSpecification baseReq = new RequestSpecBuilder()
-            .setBaseUri(Utils.getGlobalValue("baseURI") + "/api/")
+            .setBaseUri(ConfigReader.getGlobalValue("baseURI") + "/api/")
             .addHeader("Accept", "application/json")
             .build();
 

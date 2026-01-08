@@ -11,7 +11,7 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pageobjects.ui.pom.HomePage;
-import utils.Utils;
+import utils.ConfigReader;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class BaseTestUI extends BaseTest {
     protected HomePage homePage;
 
     public WebDriver initializeDriver() {
-        String browserName = Utils.getGlobalValue("browser");
+        String browserName = ConfigReader.getGlobalValue("browser");
 
         switch (browserName.toLowerCase()) {
             case "chrome":
