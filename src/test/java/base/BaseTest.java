@@ -13,7 +13,14 @@ import pageobjects.api.account.UserRequest;
 
 import java.lang.reflect.Method;
 
+import static io.restassured.parsing.Parser.JSON;
+
 public class BaseTest {
+
+    static {
+        // Handle cases where server returns JSON with incorrect Content-Type
+        RestAssured.registerParser("text/html", JSON);
+    }
 
     public UserRequest methodLevelUser;
     public UserRequest classLevelUser;
@@ -44,7 +51,6 @@ public class BaseTest {
 
     @BeforeClass
     public void setupClassClassUser() {
-        RestAssured.requestSpecification = new ApiSpecBuilder().baseReq;
         if (this.getClass().isAnnotationPresent(NeedUser.class) && classLevelUser == null) {
             classLevelUser = UserFactory.createDefaultUser();
             userClient.createUser(classLevelUser);

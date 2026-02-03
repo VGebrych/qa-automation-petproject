@@ -12,7 +12,7 @@ import pageobjects.api.client.UserApiClient;
 @NeedUser
 @NeedCleanUp
 @Test(groups = {"API"})
-public class UserAuthenticationTest extends BaseTestApi {
+public class UserAuthenticationApiTest extends BaseTestApi {
 
     @DataProvider(name = "invalidLoginDetails")
     public Object[][] invalidLoginDetails() {

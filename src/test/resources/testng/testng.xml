@@ -10,10 +10,10 @@
     </listeners>
     <test name="API Tests" >
         <classes>
-            <class name="tests.api.BrandsTest"/>
-            <class name="tests.api.ProductsTest"/>
-            <class name="tests.api.UserAccountManagementTest"/>
-            <class name="tests.api.UserAuthenticationTest"/>
+            <class name="tests.api.BrandsApiTest"/>
+            <class name="tests.api.ProductsApiTest"/>
+            <class name="tests.api.UserAccountManagementApiTest"/>
+            <class name="tests.api.UserAuthenticationApiTest"/>
         </classes>
     </test>
 </suite>

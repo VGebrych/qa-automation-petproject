@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobjects.api.account.*;
 
-public class UserAccountManagementTest extends BaseTestApi {
+public class UserAccountManagementApiTest extends BaseTestApi {
 
     @Test(testName = "API 11: POST To Create/Register User Account", groups = {"API"})
     @NeedCleanUp

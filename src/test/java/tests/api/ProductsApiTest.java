@@ -10,7 +10,7 @@ import pageobjects.api.products.ResponseProducts;
 import assertions.api.ProductsAssertions;
 import testUtils.TestDataProvider;
 
-public class ProductsTest extends BaseTestApi {
+public class ProductsApiTest extends BaseTestApi {
     final ProductsApiClient productsClient = new ProductsApiClient();
 
     @Test(testName = "API 1: Get All Products List", groups = {"API"})

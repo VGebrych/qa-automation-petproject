@@ -5,8 +5,6 @@ import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
-import static io.restassured.parsing.Parser.JSON;
-
 @Listeners({ApiSuiteListener.class})
 public class BaseTestApi extends BaseTest {
 
@@ -17,8 +15,5 @@ public class BaseTestApi extends BaseTest {
 
         // Apply base response specification for all tests
         RestAssured.responseSpecification = new ApiSpecBuilder().baseResp;
-
-        // Handle cases where server returns JSON with incorrect Content-Type
-        RestAssured.registerParser("text/html", JSON);
     }
 }

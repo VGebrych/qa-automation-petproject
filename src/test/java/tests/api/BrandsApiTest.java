@@ -11,7 +11,7 @@ import pageobjects.api.client.BrandsApiClient;
 import java.util.Set;
 
 
-public class BrandsTest extends BaseTestApi {
+public class BrandsApiTest extends BaseTestApi {
     BrandsApiClient brandsClient = new BrandsApiClient();
 
     @Test(testName = "API 3: Get All Brands List", groups = {"API"})
