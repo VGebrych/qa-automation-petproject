@@ -15,7 +15,7 @@ import testUtils.FileUtils;
 @NeedCleanUp
 public class ContactAndSubscriptionTest extends BaseTestUI {
 
-    @Test(testName = "TC06 - Contact Us Form Submission")
+    @Test(testName = "TC06 - Contact Us Form Submission", groups = {"UI"})
     public void testContactUsFormSubmission() {
         UserRequest user = getPreconditionUser();
         SoftAssert softAssert = new SoftAssert();
@@ -35,7 +35,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "TC 10 - Verify Subscription in home page")
+    @Test(testName = "TC 10 - Verify Subscription in home page", groups = {"UI"})
     public void testSubscriptionInHomePage() {
         UserRequest user = getPreconditionUser();
         SoftAssert softAssert = new SoftAssert();
@@ -50,7 +50,7 @@ public class ContactAndSubscriptionTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "TC11 - Verify Subscription in Cart page")
+    @Test(testName = "TC11 - Verify Subscription in Cart page", groups = {"UI"})
     public void testSubscriptionInCartPage() {
         UserRequest user = getPreconditionUser();
         SoftAssert softAssert = new SoftAssert();

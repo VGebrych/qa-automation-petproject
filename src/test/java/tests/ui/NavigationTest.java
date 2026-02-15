@@ -6,7 +6,7 @@ import org.testng.asserts.SoftAssert;
 import pageobjects.ui.pom.TestCasesPage;
 
 public class NavigationTest extends BaseTestUI {
-    @Test(testName = "TC07: Verify Test Cases Page")
+    @Test(testName = "TC07: Verify Test Cases Page", groups = {"UI"})
     public void verifyTestCasesPage() {
         SoftAssert softAssert = new SoftAssert();
         homePage.assertHomePageIsVisible();
@@ -18,7 +18,7 @@ public class NavigationTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "TC25: 5: Verify Scroll Up using 'Arrow' button and Scroll Down functionality")
+    @Test(testName = "TC25: 5: Verify Scroll Up using 'Arrow' button and Scroll Down functionality", groups = {"UI"})
     public void verifyScrollUpAndDownFunctionality() {
         SoftAssert softAssert = new SoftAssert();
         homePage.assertHomePageIsVisible();
@@ -34,7 +34,7 @@ public class NavigationTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "26: Verify Scroll Up without 'Arrow' button and Scroll Down functionality")
+    @Test(testName = "26: Verify Scroll Up without 'Arrow' button and Scroll Down functionality", groups = {"UI"})
     public void verifyScrollUpWithoutArrowButton() {
         SoftAssert softAssert = new SoftAssert();
         homePage.assertHomePageIsVisible();

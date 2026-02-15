@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ProductsTest extends BaseTestUI {
     //19, 21,22 - Products tests will be implemented here
-    @Test(testName = "TC08: Verify All Products and product detail page")
+    @Test(testName = "TC08: Verify All Products and product detail page", groups = {"UI"})
     public void verifyAllProductsAndProductDetailPage() {
         SoftAssert softAssert = new SoftAssert();
         homePage.assertHomePageIsVisible();
@@ -28,7 +28,7 @@ public class ProductsTest extends BaseTestUI {
     }
 
     @Test(testName = "TC09: Search Product", dataProvider = "uiSearchQueries",
-            dataProviderClass = TestDataProvider.class)
+            dataProviderClass = TestDataProvider.class, groups = {"UI"})
     public void searchProduct(String query, boolean expectEmpty) {
         SoftAssert softAssert = new SoftAssert();
         homePage.assertHomePageIsVisible();
@@ -52,7 +52,7 @@ public class ProductsTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "TC18: View Category Products")
+    @Test(testName = "TC18: View Category Products", groups = {"UI"})
     public void viewCategoryProducts(){
         SoftAssert softAssert = new SoftAssert();
         homePage.assertHomePageIsVisible();

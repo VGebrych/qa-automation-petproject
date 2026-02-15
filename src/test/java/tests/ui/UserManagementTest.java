@@ -14,7 +14,7 @@ import pageobjects.ui.pom.SignupLoginPage;
 import pageobjects.ui.pom.SignupAccountInfoPage;
 
 public class UserManagementTest extends BaseTestUI {
-    @Test(testName = "TC 01 - Register User")
+    @Test(testName = "TC 01 - Register User", groups = {"UI"})
     @NeedCleanUp
     public void registerUser() {
         methodLevelUser = UserFactory.createDefaultUser();
@@ -46,7 +46,7 @@ public class UserManagementTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "TC 02 - Login User with correct email and password")
+    @Test(testName = "TC 02 - Login User with correct email and password", groups = {"UI"})
     @NeedUser
     @NeedCleanUp
     public void loginUserWithValidCredentials() {
@@ -67,7 +67,7 @@ public class UserManagementTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "TC 03 - Login User with incorrect email and password")
+    @Test(testName = "TC 03 - Login User with incorrect email and password", groups = {"UI"})
     public void loginUserWithInvalidCredentials() {
         SoftAssert softAssert = new SoftAssert();
         homePage.assertHomePageIsVisible();
@@ -82,7 +82,7 @@ public class UserManagementTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "Delete User Account")
+    @Test(testName = "Delete User Account", groups = {"UI"})
     @NeedUser
     public void deleteUserAccount() {
         UserRequest user = getPreconditionUser();
@@ -95,7 +95,7 @@ public class UserManagementTest extends BaseTestUI {
         deleteAccount.clickContinueButton();
     }
 
-    @Test(testName = "TC 04 - Logout User")
+    @Test(testName = "TC 04 - Logout User", groups = {"UI"})
     @NeedUser
     @NeedCleanUp
     public void logoutUser() {
@@ -120,7 +120,7 @@ public class UserManagementTest extends BaseTestUI {
         softAssert.assertAll();
     }
 
-    @Test(testName = "TC 05 - Register User with existing email")
+    @Test(testName = "TC 05 - Register User with existing email", groups = {"UI"})
     @NeedUser
     @NeedCleanUp
     public void registerUserWithExistingEmail() {
