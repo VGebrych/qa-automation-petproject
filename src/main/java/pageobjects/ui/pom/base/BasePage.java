@@ -81,7 +81,7 @@ public class BasePage extends ElementActions {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    protected void hideGoogleAdsIfPresent() {
+    protected void hideBottomBannerAd() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
         WebDriverWait shortWait = (WebDriverWait) this.wait.withTimeout(Duration.ofSeconds(2));
@@ -128,7 +128,7 @@ public class BasePage extends ElementActions {
     }
 
     public void safeClick(WebElement element) {
-        hideGoogleAdsIfPresent();
+        hideBottomBannerAd();
         scrollIntoView(element);
         click(element);
     }
