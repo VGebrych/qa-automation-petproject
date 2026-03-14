@@ -44,7 +44,6 @@ public class ProductsAssertions extends BaseApiAssertion {
             softAssert.assertNotNull(p.getBrand(), "Product brand is null");
             softAssert.assertNotNull(p.getCategory(), "Product category is null");
 
-            // 4. Flexible relevance check if query is provided
             if (query != null && !query.isEmpty()) {
                 String normalizedQuery = Utils.normalizeString(query);
                 String normalizedName = Utils.normalizeString(p.getName());
